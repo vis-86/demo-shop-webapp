@@ -2,6 +2,16 @@
 
 import React, { useEffect } from 'react'
 
+declare global {
+    interface Window {
+        Telegram: {
+            WebApp: {
+                ready: () => void
+                close: () => void
+            }
+        }
+    }
+}
 
 const TelegramBotComponent = () => {
 
@@ -17,7 +27,10 @@ const TelegramBotComponent = () => {
     }
 
     return (
-        <div><button onClick={onClose}>Закрыть</button></div>
+        <div>
+            <button onClick={onClose}>Закрыть</button>
+            <script src="https://telegram.org/js/telegram-web-app.js"></script>
+        </div>
     )
 }
 

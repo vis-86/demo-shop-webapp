@@ -1,12 +1,14 @@
 :root {
   --app-bg-color: var(--tg-theme-bg-color, #fff);
   --app-border-color: #cdcbcb;
+  --app-text-color: var(--th-theme-text-color, #000);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --app-bg-color: var(--tg-theme-bg-color, #404249);
     --app-border-color: #ddd;
+    --app-text-color: var(--th-theme-text-color, #ddd);
   }
 }
 
@@ -21,7 +23,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   background: var(--app-bg-color);
-  color: var(--th-theme-text-color)
+  color: var(--app-text-color)
 }
 
 body {
