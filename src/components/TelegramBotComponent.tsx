@@ -1,6 +1,8 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import Script from 'next/script'
+import Head from 'next/head'
+import React, { useEffect, useState } from 'react'
 
 declare global {
     interface Window {
@@ -15,9 +17,10 @@ declare global {
 
 const TelegramBotComponent = () => {
 
+    const [loading, setLoading] = useState(false)
+
     useEffect(() => {
         const tg = window.Telegram ? window.Telegram.WebApp : null
-
         tg && tg.ready()
     }, [])
 
@@ -27,10 +30,17 @@ const TelegramBotComponent = () => {
     }
 
     return (
-        <div>
-            <button onClick={onClose}>Закрыть</button>
-            <script src="https://telegram.org/js/telegram-web-app.js"></script>
-        </div>
+        <>
+            <Script
+                src="https://telegram.org/js/telegram-web-app.js"
+                onLoad={() => {
+                    console.log(`script loaded correctly, window.FB has been populated`)
+                    setLoading(true)
+                }} />
+            {loading ? <div>
+                <button onClick={onClose}>Закрыть</button>
+            </div> : null}
+        </>
     )
 }
 
