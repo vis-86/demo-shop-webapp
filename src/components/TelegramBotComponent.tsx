@@ -6,10 +6,15 @@ import React, { useEffect, useState } from 'react'
 
 declare global {
     interface Window {
-        Telegram: {
-            WebApp: {
+        Telegram?: {
+            WebApp?: {
                 ready: () => void
                 close: () => void
+                initDataUnsafe?: {
+                    user?: {
+                        username?: string
+                    }
+                }
             }
         }
     }
@@ -38,6 +43,7 @@ const TelegramBotComponent = () => {
                     setLoading(true)
                 }} />
             {loading ? <div>
+                <h1>{window?.Telegram?.WebApp?.initDataUnsafe?.user?.username}</h1>
                 <button onClick={onClose}>Закрыть</button>
             </div> : null}
         </>

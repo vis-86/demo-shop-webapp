@@ -10,7 +10,7 @@ const ProductList = () => {
     const { data: menuePrices, isLoading } = useSWR("menuePrices", getProductList);
     
     return isLoading ? (
-        <h3>Loading... </h3>
+        <h3 className='text-center'>Loading... </h3>
     ) : (
         <div className='product-container'>
             {menuePrices && menuePrices.map((item: Product) => (
