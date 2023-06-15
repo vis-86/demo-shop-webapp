@@ -1,6 +1,6 @@
-export const menuePrices = [{
+export const productList = [{
     name: 'ЭСПРЕССО',
-    imgThumbUrl: 'https://cofix.global/upload/iblock/c00/w4owvtupe7ge2lul3ohmpg0qb4xcc25h/Slayd-415.png',
+    imgThumbUrl: '/cup_png_sm.png',
     values: [
         {
             value: 200,
@@ -21,7 +21,7 @@ export const menuePrices = [{
     ]
 }, {
     name: 'КАПУЧИНО',
-    imgThumbUrl: 'https://cofix.global/upload/iblock/c00/w4owvtupe7ge2lul3ohmpg0qb4xcc25h/Slayd-415.png',
+    imgThumbUrl: '/cup_png.png',
     values: [
         {
             value: 200,
@@ -42,7 +42,7 @@ export const menuePrices = [{
     ]
 }, {
     name: 'ЛАТТЕ',
-    imgThumbUrl: 'https://cofix.global/upload/iblock/c00/w4owvtupe7ge2lul3ohmpg0qb4xcc25h/Slayd-415.png',
+    imgThumbUrl: '/cup_png_latte.png',
     values: [
         {
             value: 200,
@@ -63,7 +63,7 @@ export const menuePrices = [{
     ]
 }, {
     name: 'РАФ',
-    imgThumbUrl: 'https://cofix.global/upload/iblock/c00/w4owvtupe7ge2lul3ohmpg0qb4xcc25h/Slayd-415.png',
+    imgThumbUrl: '/cup_png_raff.png',
     values: [
         {
             value: 200,

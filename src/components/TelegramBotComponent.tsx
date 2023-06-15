@@ -1,50 +1,22 @@
 'use client'
 
 import Script from 'next/script'
-import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
-
-declare global {
-    interface Window {
-        Telegram?: {
-            WebApp?: {
-                ready: () => void
-                close: () => void
-                initDataUnsafe?: {
-                    user?: {
-                        username?: string
-                    }
-                }
-            }
-        }
-    }
-}
+import React, { useState } from 'react'
+import { useTelegram } from '@/hooks/UseTelegram'
 
 const TelegramBotComponent = () => {
 
     const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        const tg = window.Telegram ? window.Telegram.WebApp : null
-        tg && tg.ready()
-    }, [])
-
-    const onClose = () => {
-        const tg = window.Telegram ? window.Telegram.WebApp : null
-        tg && tg.close()
-    }
+    const { enabled, onClose, user } = useTelegram()
 
     return (
         <>
             <Script
                 src="https://telegram.org/js/telegram-web-app.js"
-                onLoad={() => {
-                    console.log(`script loaded correctly, window.FB has been populated`)
-                    setLoading(true)
-                }} />
-            {loading ? <div>
-                <h1>{window?.Telegram?.WebApp?.initDataUnsafe?.user?.username}</h1>
-                <button onClick={onClose}>Закрыть</button>
+                onLoad={() => setLoading(true)} />
+            {enabled && loading ? <div>
+                <h1>{user?.username}</h1>
+                <button className='tg' onClick={onClose}>Закрыть</button>
             </div> : null}
         </>
     )

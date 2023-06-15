@@ -1,6 +1,6 @@
 'use client'
 
-import { Product } from "@/services/types/Product.type"
+import { Product } from "@/types/Product"
 import Image from "next/image"
 
 import { PropsWithChildren } from "react"
@@ -17,7 +17,7 @@ const ProductItem = (props: PropsWithChildren<IProps>) => {
     return <div className="product-item">
         <div className="product-item-card">
             <div className="product-item-img">
-                <Image src={imgThumbUrl} alt={name} width={40} height={60} ></Image>
+                <Image src={imgThumbUrl} alt={name} width={80} height={80} ></Image>
             </div>
             <div className="product-item-text">{name}</div>
         </div>
