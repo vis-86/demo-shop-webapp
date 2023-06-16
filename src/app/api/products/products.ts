@@ -1,84 +1,88 @@
 export const productList = [{
+    id: 1,
     name: 'ЭСПРЕССО',
     imgThumbUrl: '/cup_png_sm.png',
-    values: [
+    volumes: [
         {
-            value: 200,
+            volume: 200,
             price: 90
         },
         {
-            value: 300,
+            volume: 300,
             price: 150
         },
         {
-            value: 400,
+            volume: 400,
             price: 210
         },
         {
-            value: 600,
+            volume: 600,
             price: 270
         }
     ]
 }, {
+    id: 2,
     name: 'КАПУЧИНО',
     imgThumbUrl: '/cup_png.png',
-    values: [
+    volumes: [
         {
-            value: 200,
+            volume: 200,
             price: 90
         },
         {
-            value: 300,
+            volume: 300,
             price: 150
         },
         {
-            value: 400,
+            volume: 400,
             price: 210
         },
         {
-            value: 600,
+            volume: 600,
             price: 270
         }
     ]
 }, {
+    id: 3,
     name: 'ЛАТТЕ',
     imgThumbUrl: '/cup_png_latte.png',
-    values: [
+    volumes: [
         {
-            value: 200,
+            volume: 200,
             price: 90
         },
         {
-            value: 300,
+            volume: 300,
             price: 150
         },
         {
-            value: 400,
+            volume: 400,
             price: 210
         },
         {
-            value: 600,
+            volume: 600,
             price: 270
         }
     ]
 }, {
+    id: 4,
     name: 'РАФ',
     imgThumbUrl: '/cup_png_raff.png',
-    values: [
+    volumes: [
         {
-            value: 200,
+            volume: 200,
             price: 90
         },
         {
-            value: 300,
+            volume: 300,
             price: 150
         },
         {
-            value: 400,
+            volume: 400,
             price: 210
         },
         {
-            value: 600,
+            volume: 600,
             price: 270
         }
     ]

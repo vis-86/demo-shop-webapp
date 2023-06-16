@@ -14,7 +14,7 @@ const ProductList = () => {
     ) : (
         <div className='product-container'>
             {productList && productList.map((item: Product) => (
-                <ProductItem item={item} key={item.name}></ProductItem>
+                <ProductItem item={item} key={item.id}></ProductItem>
             ))}
         </div>
     );

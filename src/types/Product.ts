@@ -1,10 +1,11 @@
 export type Product = {
+    id: number
     name: string,
     imgThumbUrl: string,
-    values: Array<ProductValue>
+    volumes: ProductVolume[]
 }
 
-export type ProductValue = {
-    value: number,
+export type ProductVolume = {
+    volume: number,
     price: number
 }
