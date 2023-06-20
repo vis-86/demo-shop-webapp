@@ -56,9 +56,11 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
         setVolume(newVolume)
     }
     const onAddCount = () => {
+        tgApi.hapticFeedback()
         setCount((prev) => prev + 1)
     }
     const onSubtractCount = () => {
+        tgApi.hapticFeedback()
         setCount((prev) => {
             if (prev > 1) {
                 return prev - 1
