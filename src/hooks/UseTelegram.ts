@@ -51,6 +51,12 @@ export function useTelegram() {
         webApp?.expand();
     }
 
+    const hapticFeedback = () => {
+        if (!isTgEnabled(webApp)) {
+            return
+        }
+        webApp?.HapticFeedback.impactOccurred('light')
+    }
 
     return {
         enabled: isTgEnabled(webApp),
@@ -59,7 +65,8 @@ export function useTelegram() {
             expand,
             onClose,
             onToggleButton,
-            showBackButton
+            showBackButton,
+            hapticFeedback
         },
         user
     }

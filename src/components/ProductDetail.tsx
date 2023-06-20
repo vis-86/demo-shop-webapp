@@ -72,6 +72,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
                         className={'product-volume-item ' + (s.volume === volume?.volume ? 'product-volume-item--active' : '')}
                         onClick={() => {
                             onVolumeClick(s)
+                            tgApi.hapticFeedback()
                         }} key={s.volume}
                     >
                         <div className={'volume-circle ' + 'volume-circle-' + s.volume} ></div>
