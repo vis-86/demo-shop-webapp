@@ -25,12 +25,11 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
             setVolume(product.volumes[0])
         }
         tgApi.showBackButton(() => {
-            router.back()
-
             tgApi.setMainButtonParams({
                 is_visible: false,
                 text: '',
             })
+            router.back()
         })
     }, [router, product, volume, tgApi])
 
@@ -42,11 +41,11 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
             is_visible: true,
             text: `Добавить (${count * volume.price} ₽)`
         }, () => {
+            tgApi.hideBackButton()
             tgApi.setMainButtonParams({
                 is_visible: true,
                 text: `Оплатить ${count * volume.price} ₽`
             })
-            tgApi.hideBackButton()
             router.back()
         })
 

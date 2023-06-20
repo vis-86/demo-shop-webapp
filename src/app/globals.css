@@ -6,7 +6,6 @@
 }
 
 :root {
-  --default-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   --block-bg-color: var(--tg-theme-bg-color);
   --bg-color: #ebedf0;
   --animation: .15s ease;
@@ -55,15 +54,6 @@ body {
   }
 }
 
-html.dark body {
-  --block-bg-color: var(--tg-theme-bg-color);
-  --bg-color: #0f0f0f;
-  --text-color: #fff;
-  --page-hint-color: #9b9ba1;
-  --hint-color: #64666d;
-  --placeholder-color: #5d6163;
-  --border-color: #fff;
-}
 body.order-mode {
   background-color: var(--bg-color);
 }

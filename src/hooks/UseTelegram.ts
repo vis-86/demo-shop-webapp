@@ -46,8 +46,8 @@ export function useTelegram() {
         }
         webApp?.BackButton.show()
         webApp?.BackButton.onClick(() => {
-            onClick()
             hideBackButton()
+            onClick()
         })
     }
 
