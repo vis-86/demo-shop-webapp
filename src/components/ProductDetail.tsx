@@ -18,18 +18,19 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
     const [volume, setVolume] = useState<ProductVolume>()
     const [count, setCount] = useState<number>(1)
 
-    const { tg, enabled: tgEnabeld, tgApi } = useTelegram()
+    const { enabled: tgEnabeld, tgApi } = useTelegram()
 
     useEffect(() => {
         if (!volume && product && product.volumes) {
             setVolume(product.volumes[0])
         }
         tgApi.showBackButton(() => {
+            router.back()
+
             tgApi.setMainButtonParams({
                 is_visible: false,
                 text: '',
             })
-            router.back()
         })
     }, [router, product, volume, tgApi])
 
@@ -39,12 +40,13 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
 
         tgApi.setMainButtonParams({
             is_visible: true,
-            text: 'Добавить'
+            text: `Добавить (${count * volume.price} ₽)`
         }, () => {
             tgApi.setMainButtonParams({
                 is_visible: true,
                 text: `Оплатить ${count * volume.price} ₽`
             })
+            tgApi.hideBackButton()
             router.back()
         })
 

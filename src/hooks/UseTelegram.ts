@@ -33,6 +33,13 @@ export function useTelegram() {
         }
     }
 
+    const hideBackButton = () => {
+        if (!isTgEnabled(webApp)) {
+            return
+        }
+        webApp?.BackButton.hide()
+    }
+
     const showBackButton = (onClick: () => void) => {
         if (!isTgEnabled(webApp)) {
             return
@@ -40,7 +47,7 @@ export function useTelegram() {
         webApp?.BackButton.show()
         webApp?.BackButton.onClick(() => {
             onClick()
-            webApp?.BackButton.hide()
+            hideBackButton()
         })
     }
 
@@ -58,15 +65,17 @@ export function useTelegram() {
         webApp?.HapticFeedback.impactOccurred('soft')
     }
 
-    const setMainButtonParams = (params: MainButtonParams, onClick?: () => void): null | MainButton => {
+    const setMainButtonParams = (
+        params: MainButtonParams,
+        onClick?: () => void
+    ) => {
         if (!isTgEnabled(webApp) || !webApp?.MainButton) {
             return null
         }
         webApp?.MainButton.setParams(params)
         if (onClick) {
-            webApp?.MainButton.onClick(onClick)
+            webApp?.MainButton.onClick(() => onClick())
         }
-        return webApp?.MainButton
     }
 
     return {
@@ -77,6 +86,7 @@ export function useTelegram() {
             onClose,
             onToggleButton,
             showBackButton,
+            hideBackButton,
             hapticFeedback,
             setMainButtonParams
         },
