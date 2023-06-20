@@ -1,8 +1,8 @@
 import './globals.css'
-import { Montserrat } from 'next/font/google'
+import { Oswald } from 'next/font/google'
 import { TelegramBotComponent } from '@/components/TelegramBotComponent'
 
-const roboto = Montserrat({ subsets: ['cyrillic', 'latin'] })
+const roboto = Oswald({ subsets: ['cyrillic', 'cyrillic-ext', 'latin'] })
 
 export const metadata = {
   title: 'Create Next App',

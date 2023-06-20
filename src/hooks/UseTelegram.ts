@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react"
 
+const isTgEnabled = (webApp: WebApp | null | undefined): boolean => {
+    return webApp && webApp.initDataUnsafe && webApp.initDataUnsafe.query_id ? true : false
+}
+
 export function useTelegram() {
     const [webApp, setWebApp] = useState<WebApp | null>()
     const [user, setUser] = useState<WebAppUser>()
@@ -29,11 +33,25 @@ export function useTelegram() {
         }
     }
 
+    const showBackButton = (onClick: () => void) => {
+        if (!isTgEnabled(webApp)) {
+            return
+        }
+        webApp?.BackButton.show()
+        webApp?.BackButton.onClick(() => {
+            onClick()
+            webApp?.BackButton.hide()
+        })
+    }
+
+
+
     return {
-        enabled: webApp && webApp.initDataUnsafe  && webApp.initDataUnsafe.query_id? true : false,
+        enabled: isTgEnabled(webApp),
         tg: webApp,
         onClose,
         onToggleButton,
+        showBackButton,
         user
     }
 }

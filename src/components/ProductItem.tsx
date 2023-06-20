@@ -25,6 +25,7 @@ const ProductItem = (props: PropsWithChildren<IProps>) => {
             </div>
             <div className="product-item-footer">
                 <div className="product-item-text">{name}</div>
+                <div className="product-item-line"></div>
                 <div className="product-item-price-info">
                     <div className="product-item-price">от 60 ₽</div>
                     <div className="product-item-volume">90 мл</div>

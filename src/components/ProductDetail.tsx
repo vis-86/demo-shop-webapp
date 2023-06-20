@@ -10,34 +10,52 @@ import { useRouter } from 'next/navigation'
 
 const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
     const { id } = props
-    const { data: product } = useSWR(id + '', getProductById);
+    const { data: product, isLoading } = useSWR(id + '', getProductById);
     const [volume, setVolume] = useState<ProductVolume>()
     const router = useRouter()
 
-    const { tg, enabled: tgEnabeld } = useTelegram()
+    const { tg, enabled: tgEnabeld, showBackButton } = useTelegram()
 
     useEffect(() => {
         if (!volume && product && product.volumes) {
             setVolume(product.volumes[0])
         }
+        showBackButton(router.back)
+    }, [router, product, volume, showBackButton])
 
-        if (tgEnabeld) {
-            tg?.BackButton.onClick(() => {
-                router.back()
-            })
-            tg?.BackButton.show()
+
+    useEffect(() => {
+        tg?.MainButton.showProgress()
+        if (!volume || !tgEnabeld) {
+            return
         }
-    }, [product, tg])
+        if (tg?.MainButton) {
+            tg?.MainButton
+                .setParams({
+                    is_visible: true,
+                    text: 'PAY ' + volume.price,
+                    color: '#31b545'
+                })
+                .hideProgress()
+                .show()
+        }
+
+    }, [volume, tgEnabeld, tg])
 
     const onVolumeClick = (newVolume: ProductVolume) => {
         setVolume(newVolume)
     }
+    if (isLoading) {
+        return <h3 className='text-center loader'>Loading... </h3>
+    }
 
     return (
         <div className='product-item-detail'>
-            {!tgEnabeld && <a href='#' onClick={() => {
-                router.back()
-            }}>Назад</a>}
+            {!tgEnabeld && <div className='top-bar'>
+                <a href='#' onClick={() => {
+                    router.back()
+                }}>Назад</a>
+            </div>}
             <div className='product-item-detail-image'>
                 {product ? <Image src={product.imgThumbUrl} alt={product.name} width={140} height={140} priority={true}></Image> : null}
             </div>
