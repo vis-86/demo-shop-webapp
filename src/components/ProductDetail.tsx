@@ -22,9 +22,18 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
         if (!volume && product && product.volumes) {
             setVolume(product.volumes[0])
         }
-        tgApi.showBackButton(router.back)
+        tgApi.showBackButton(() => {
+            router.back()
+
+            if (tgEnabeld && volume) {
+                tg?.MainButton.setParams({
+                    is_visible: true,
+                    text: 'Оплатить ' + count * volume.price
+                })
+            }
+        })
         tgApi.expand()
-    }, [router, product, volume, tgApi])
+    }, [router, product, volume, tgApi, tgEnabeld, tg, count])
 
 
     useEffect(() => {
@@ -36,8 +45,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
             tg?.MainButton
                 .setParams({
                     is_visible: true,
-                    text: 'Добавить ' + count * volume.price,
-                    color: '#31b545'
+                    text: 'Добавить'
                 })
                 .hideProgress()
                 .show()
