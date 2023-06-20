@@ -7,16 +7,16 @@ import { useTelegram } from '@/hooks/UseTelegram'
 const TelegramBotComponent = () => {
 
     const [loading, setLoading] = useState(false)
-    const { enabled, onClose, user } = useTelegram()
+    const { enabled, tgApi, user } = useTelegram()
 
     return (
         <>
             <Script
                 src="https://telegram.org/js/telegram-web-app.js"
                 onLoad={() => setLoading(true)} />
-            {enabled && loading ? <div>
+            {enabled && !loading ? <div>
                 <h1>{user?.username}</h1>
-                <button className='tg' onClick={onClose}>Закрыть</button>
+                <button className='tg' onClick={tgApi.onClose}>Закрыть</button>
             </div> : null}
         </>
     )

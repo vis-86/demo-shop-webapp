@@ -44,14 +44,23 @@ export function useTelegram() {
         })
     }
 
+    const expand = () => {
+        if (!isTgEnabled(webApp)) {
+            return
+        }
+        webApp?.expand();
+    }
 
 
     return {
         enabled: isTgEnabled(webApp),
         tg: webApp,
-        onClose,
-        onToggleButton,
-        showBackButton,
+        tgApi: {
+            expand,
+            onClose,
+            onToggleButton,
+            showBackButton
+        },
         user
     }
 }

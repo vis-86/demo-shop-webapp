@@ -38,6 +38,21 @@ body {
   user-select: none;
   cursor: default;
 }
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    --block-bg-color: var(--tg-theme-bg-color);
+    --bg-color: #0f0f0f;
+    --text-color: #fff;
+    --page-hint-color: #9b9ba1;
+    --hint-color: #64666d;
+    --placeholder-color: #5d6163;
+  }
+}
+
 html.dark body {
   --block-bg-color: var(--tg-theme-bg-color);
   --bg-color: #0f0f0f;
@@ -48,14 +63,6 @@ html.dark body {
 }
 body.order-mode {
   background-color: var(--bg-color);
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  background: var(--bg-color);
-  color: var(--text-color)
 }
 
 a {
@@ -73,14 +80,13 @@ a {
   padding: 15px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+
+.cafe-page {
+  transition: filter var(--animation);
 }
 
 .container {
-  max-width: 1140px;
+  max-width: 448px;
   margin: 0 auto;
 }
 
@@ -136,12 +142,21 @@ a {
   width: 92px;
 }
 
-.product-item-detail-head {
+.product-item-detail-card {
   display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 2rem;
+  padding: 15px;
 }
-.product-item-detail-head > div { 
-  padding: 20px;
+.product-item-detail-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.product-item-detail-card-content > div { 
+  padding: 20px 20px;
+  font-size: 2rem;
 }
 .product-item-detail-price {
   font-weight: bold;
@@ -153,9 +168,6 @@ a {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-}
-.product-item-detail-image {
-  width: 140px;
 }
 .product-volume-item {
   padding: 5px;
@@ -200,11 +212,6 @@ a {
   .product-item-detail {
     display: block;
   }
-  .product-item-detail-head {
-    display: flex;
-    justify-content: space-between;
-    color: var(--text-color)
-  }
   .product-item {
     padding: 5px;
     flex-basis: 50%;
@@ -217,18 +224,7 @@ a {
     height: 50px;
     width: 50px;
   }
-  .product-detail-volume-price,
-  .product-item-detail-head {
-    font-size: 1rem;
-    align-items: center;
-  }
-  .product-item-detail-image {
-    margin: 30px auto 15px auto;
-  }
   .product-volume-item {
     flex-basis: 25%;
-  }
-  .product-item-detail-price {
-    font-size: 1.2rem;
   }
 }

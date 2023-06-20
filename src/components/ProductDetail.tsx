@@ -14,14 +14,15 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
     const [volume, setVolume] = useState<ProductVolume>()
     const router = useRouter()
 
-    const { tg, enabled: tgEnabeld, showBackButton } = useTelegram()
+    const { tg, enabled: tgEnabeld, tgApi } = useTelegram()
 
     useEffect(() => {
         if (!volume && product && product.volumes) {
             setVolume(product.volumes[0])
         }
-        showBackButton(router.back)
-    }, [router, product, volume, showBackButton])
+        tgApi.showBackButton(router.back)
+        tgApi.expand()
+    }, [router, product, volume, tgApi])
 
 
     useEffect(() => {
@@ -56,12 +57,14 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
                     router.back()
                 }}>Назад</a>
             </div>}
-            <div className='product-item-detail-image'>
-                {product ? <Image src={product.imgThumbUrl} alt={product.name} width={140} height={140} priority={true}></Image> : null}
-            </div>
-            <div className='product-item-detail-head'>
-                <div>{product?.name}</div>
-                <div className='product-item-detail-price'>{volume?.price} ₽</div>
+            <div className='product-item-detail-card'>
+                <div className='product-item-detail-image'>
+                    {product ? <Image src={product.imgThumbUrl} alt={product.name} width={140} height={140} priority={true}></Image> : null}
+                </div>
+                <div className='product-item-detail-card-content'>
+                    <div>{product?.name}</div>
+                    <div className='product-item-detail-price'>{volume?.price} ₽</div>
+                </div>
             </div>
             <div className='product-item-detail-volumes'>
                 {product && product.volumes.map(s => {

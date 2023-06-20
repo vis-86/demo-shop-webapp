@@ -12,7 +12,7 @@ const ProductList = () => {
     return isLoading ? (
         <h3 className='text-center loader'>Loading... </h3>
     ) : (
-        <div className='product-container'>
+        <div className='product-container cafe-page'>
             {productList && productList.map((item: Product) => (
                 <ProductItem item={item} key={item.id}></ProductItem>
             ))}
