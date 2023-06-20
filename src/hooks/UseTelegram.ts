@@ -58,6 +58,17 @@ export function useTelegram() {
         webApp?.HapticFeedback.impactOccurred('soft')
     }
 
+    const setMainButtonParams = (params: MainButtonParams, onClick?: () => void): null | MainButton => {
+        if (!isTgEnabled(webApp) || !webApp?.MainButton) {
+            return null
+        }
+        webApp?.MainButton.setParams(params)
+        if (onClick) {
+            webApp?.MainButton.onClick(onClick)
+        }
+        return webApp?.MainButton
+    }
+
     return {
         enabled: isTgEnabled(webApp),
         tg: webApp,
@@ -66,7 +77,8 @@ export function useTelegram() {
             onClose,
             onToggleButton,
             showBackButton,
-            hapticFeedback
+            hapticFeedback,
+            setMainButtonParams
         },
         user
     }

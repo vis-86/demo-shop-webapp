@@ -25,35 +25,30 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
             setVolume(product.volumes[0])
         }
         tgApi.showBackButton(() => {
+            tgApi.setMainButtonParams({
+                is_visible: false,
+                text: '',
+            })
             router.back()
-
-            if (tgEnabeld && volume) {
-                tg?.MainButton.setParams({
-                    is_visible: true,
-                    text: 'Оплатить ' + count * volume.price
-                })
-            }
         })
-        tgApi.expand()
-    }, [router, product, volume, tgApi, tgEnabeld, tg, count])
+    }, [router, product, volume, tgApi])
 
 
     useEffect(() => {
-        tg?.MainButton.showProgress()
-        if (!volume || !tgEnabeld) {
-            return
-        }
-        if (tg?.MainButton) {
-            tg?.MainButton
-                .setParams({
-                    is_visible: true,
-                    text: 'Добавить'
-                })
-                .hideProgress()
-                .show()
-        }
+        if (!volume) return
 
-    }, [volume, tgEnabeld, tg, count])
+        tgApi.setMainButtonParams({
+            is_visible: true,
+            text: 'Добавить'
+        }, () => {
+            tgApi.setMainButtonParams({
+                is_visible: true,
+                text: `Оплатить ${count * volume.price} ₽`
+            })
+            router.back()
+        })
+
+    }, [router, volume, tgApi, count])
 
     const onVolumeClick = (newVolume: ProductVolume) => {
         setVolume(newVolume)
