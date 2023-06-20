@@ -1,22 +1,33 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { getProductById } from "@/services/GetProductList"
 import Image from 'next/image'
 import { ProductVolume } from '@/types/Product'
+import { useTelegram } from '@/hooks/UseTelegram'
+import { useRouter } from 'next/navigation'
 
-const ProductDetail = (props: React.PropsWithChildren<{ id: number }>) => {
+const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
     const { id } = props
     const { data: product } = useSWR(id + '', getProductById);
-
     const [volume, setVolume] = useState<ProductVolume>()
+    const router = useRouter()
+
+    const { tg, enabled: tgEnabeld } = useTelegram()
 
     useEffect(() => {
         if (!volume && product && product.volumes) {
             setVolume(product.volumes[0])
         }
-    }, [product])
+
+        if (tgEnabeld) {
+            tg?.BackButton.onClick(() => {
+                router.back()
+            })
+            tg?.BackButton.show()
+        }
+    }, [product, tg])
 
     const onVolumeClick = (newVolume: ProductVolume) => {
         setVolume(newVolume)
@@ -24,8 +35,11 @@ const ProductDetail = (props: React.PropsWithChildren<{ id: number }>) => {
 
     return (
         <div className='product-item-detail'>
+            {!tgEnabeld && <a href='#' onClick={() => {
+                router.back()
+            }}>Назад</a>}
             <div className='product-item-detail-image'>
-                {product ? <Image src={product.imgThumbUrl} alt={product.name} width={140} height={140} ></Image> : null}
+                {product ? <Image src={product.imgThumbUrl} alt={product.name} width={140} height={140} priority={true}></Image> : null}
             </div>
             <div className='product-item-detail-head'>
                 <div>{product?.name}</div>

@@ -1,7 +1,7 @@
 export const productList = [{
     id: 1,
     name: 'ЭСПРЕССО',
-    imgThumbUrl: '/cup_png_sm.png',
+    imgThumbUrl: '/cup.svg',
     volumes: [
         {
             volume: 200,
@@ -23,7 +23,7 @@ export const productList = [{
 }, {
     id: 2,
     name: 'КАПУЧИНО',
-    imgThumbUrl: '/cup_png.png',
+    imgThumbUrl: '/cup.svg',
     volumes: [
         {
             volume: 200,
@@ -45,7 +45,7 @@ export const productList = [{
 }, {
     id: 3,
     name: 'ЛАТТЕ',
-    imgThumbUrl: '/cup_png_latte.png',
+    imgThumbUrl: '/cup.svg',
     volumes: [
         {
             volume: 200,
@@ -67,7 +67,7 @@ export const productList = [{
 }, {
     id: 4,
     name: 'РАФ',
-    imgThumbUrl: '/cup_png_raff.png',
+    imgThumbUrl: '/cup.svg',
     volumes: [
         {
             volume: 200,

@@ -30,7 +30,7 @@ export function useTelegram() {
     }
 
     return {
-        enabled: webApp ? true : false,
+        enabled: webApp && webApp.initDataUnsafe  && webApp.initDataUnsafe.query_id? true : false,
         tg: webApp,
         onClose,
         onToggleButton,

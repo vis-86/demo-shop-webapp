@@ -21,8 +21,7 @@ const ProductItem = (props: PropsWithChildren<IProps>) => {
     return <div className="product-item">
         <Link href={'/detail/' + id} className="product-item-card">
             <div className="product-item-img">
-                <Image src={imgThumbUrl} alt={name} width={80} height={80} ></Image>
-                <div className="produc-img-circle-bg"></div>
+                <Image src={imgThumbUrl} alt={name} width={80} height={80} priority={false}></Image>
             </div>
             <div className="product-item-footer">
                 <div className="product-item-text">{name}</div>
