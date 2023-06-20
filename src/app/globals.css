@@ -93,6 +93,10 @@ a {
   min-width: 54px;
   font-size: 30px;
 }
+.circle-btn > svg {
+  height: 24px;
+  width: 24px;
+}
 .container {
   max-width: 448px;
   margin: 0 auto;

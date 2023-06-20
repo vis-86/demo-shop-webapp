@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { ProductVolume } from '@/types/Product'
 import { useTelegram } from '@/hooks/UseTelegram'
 import { useRouter } from 'next/navigation'
+import PlusIcon from './icons/plus'
+import MinusIcon from './icons/minus'
 
 const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
     const router = useRouter()
@@ -105,9 +107,9 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
                 })}
             </div>
             <div className='product-detail-counts-container'>
-                <button className='circle-btn' onClick={onSubtractCount}>-</button>
+                <button className='circle-btn' onClick={onSubtractCount}><MinusIcon /></button>
                 <div className='product-detail-counts'>{count}</div>
-                <button className='circle-btn' onClick={onAddCount}>+</button>
+                <button className='circle-btn' onClick={onAddCount}><PlusIcon /></button>
             </div>
         </div>
 
