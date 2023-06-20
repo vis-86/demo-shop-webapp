@@ -161,6 +161,7 @@ a {
 .product-item-detail-price {
   font-weight: bold;
   color: orange;
+  min-width: 120px;
 }
 
 .product-item-detail-volumes {
