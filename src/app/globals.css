@@ -5,20 +5,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-
-body {
-  font-family: var(--default-font);
-  font-size: 13px;
-  line-height: 16px;
-  font-weight: 400;
-  background-color: var(--block-bg-color);
-  color: var(--text-color);
-  color-scheme: var(--tg-color-scheme);
-  margin: 0;
-  padding: 0;
-  width: 1px;
-  min-width: 100%;
-
+:root {
   --default-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   --block-bg-color: var(--tg-theme-bg-color);
   --bg-color: #ebedf0;
@@ -34,22 +21,37 @@ body {
   --placeholder-color: #999da1;
   --ripple-duration: .45s;
   --ripple-end-duration: .3s;
-  -webkit-user-select: none;
+  --border-color: #000;
+}
+body {
+  font-family: var(--default-font);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+  background-color: var(--block-bg-color);
+  color: var(--text-color);
+  color-scheme: var(--tg-color-scheme);
+  margin: 0;
+  padding: 0;
+  width: 1px;
+  min-width: 100%;
   user-select: none;
   cursor: default;
+  -webkit-user-select: none;
 }
 
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
-  body {
+  :root {
     --block-bg-color: var(--tg-theme-bg-color);
     --bg-color: #0f0f0f;
     --text-color: #fff;
     --page-hint-color: #9b9ba1;
     --hint-color: #64666d;
     --placeholder-color: #5d6163;
+    --border-color: #fff;
   }
 }
 
@@ -60,6 +62,7 @@ html.dark body {
   --page-hint-color: #9b9ba1;
   --hint-color: #64666d;
   --placeholder-color: #5d6163;
+  --border-color: #fff;
 }
 body.order-mode {
   background-color: var(--bg-color);
@@ -79,12 +82,17 @@ a {
 .loader {
   padding: 15px;
 }
-
-
-.cafe-page {
-  transition: filter var(--animation);
+.circle-btn {
+  background-color: var(--block-bg-color);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  border-radius: 64px;
+  min-width: 54px;
+  font-size: 30px;
 }
-
 .container {
   max-width: 448px;
   margin: 0 auto;
@@ -98,7 +106,7 @@ a {
 }
 .product-item {
   padding: 5px;
-  flex-basis: 180px;
+  flex-basis: 50%;
   min-width: 0;
   flex-grow: 0;
 
@@ -141,30 +149,30 @@ a {
   height: 92px;
   width: 92px;
 }
-
-.product-item-detail-card {
+.product-detail-card {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
   padding: 15px;
 }
-.product-item-detail-card-content {
+.product-detail-card-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.product-item-detail-card-content > div { 
+.product-detail-card-content > div { 
   padding: 20px 20px;
   font-size: 2rem;
 }
-.product-item-detail-price {
+.product-detail-price {
   font-weight: bold;
   color: orange;
   min-width: 120px;
+  transition: filter var(--animation);
 }
 
-.product-item-detail-volumes {
+.product-detail-volumes {
   padding: 20px;
   display: flex;
   justify-content: space-between;
@@ -185,9 +193,10 @@ a {
   padding: 5px 0;
   margin-top: 5px;
   opacity: .7;
+  
 }
 .volume-circle {
-  border: 1px solid #fff;
+  border: 1px solid var(--border-color);
   height: 80px;
   width: 80px;
   border-radius: 80px;
@@ -199,7 +208,20 @@ a {
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
-  
+  transition: filter var(--animation); 
+}
+.product-detail-counts-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  font-size: 18px;
+}
+.product-detail-counts {
+  font-size: 18px;
+  text-align: center;
+  max-width: 45px;
+  padding: 0 15px;
 }
 .product-volume-item--active {
   opacity: 1;
@@ -210,7 +232,7 @@ a {
 .volume-circle-600 {background-image: url(/volumes/Cup_600.svg);}
 
 @media (max-width: 440px) { 
-  .product-item-detail {
+  .product-detail {
     display: block;
   }
   .product-item {

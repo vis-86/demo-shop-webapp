@@ -55,7 +55,7 @@ export function useTelegram() {
         if (!isTgEnabled(webApp)) {
             return
         }
-        webApp?.HapticFeedback.impactOccurred('light')
+        webApp?.HapticFeedback.impactOccurred('soft')
     }
 
     return {
