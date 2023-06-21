@@ -27,8 +27,8 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
         
         const onBack = ()=> {
             tgApi.hideBackButton()
-            tgApi.hideMainButton()
-            router.back()
+            setTimeout(()=> tgApi.hideMainButton, 110)
+            setTimeout(()=> router.back, 130)
         }
 
         tgApi.showBackButton(onBack)
