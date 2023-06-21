@@ -20,8 +20,8 @@ body {
   cursor: default;
   -webkit-user-select: none;
   
-  --block-bg-color: var(--tg-theme-bg-color, #ddd);
-  --bg-color: #ebedf0;
+  --block-bg-color: var(--tg-theme-bg-color, #d3d7dd);
+  --bg-color: #d3d7dd;
   --animation: .15s ease;
   --page-animation-duration: .3s;
   --page-animation: var(--page-animation-duration) ease;
@@ -50,6 +50,15 @@ body {
     --placeholder-color: #5d6163;
     --border-color: #fff;
   }
+}
+html.dark body {
+  --block-bg-color: var(--tg-theme-bg-color, #2c2c2c);
+  --bg-color: #0f0f0f;
+  --text-color: #fff;
+  --page-hint-color: #9b9ba1;
+  --hint-color: #64666d;
+  --placeholder-color: #5d6163;
+  --border-color: #fff;
 }
 
 body.order-mode {
