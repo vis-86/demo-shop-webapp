@@ -22,14 +22,16 @@ export function useTelegram() {
         webApp && webApp.close()
     }
 
-    const hideMainButton = () => {
+    const hideMainButton = (calback?: () => void) => {
         if (!isTgEnabled(webApp)) {
             return
         }
         if (webApp?.MainButton.isVisible) {
-            webApp.MainButton.setText('')
-            webApp.MainButton.hide()
+            webApp.MainButton.setParams(
+                {is_visible: false, text: ''}
+            )
         }
+        calback && calback()
     }
 
     const hideBackButton = () => {
