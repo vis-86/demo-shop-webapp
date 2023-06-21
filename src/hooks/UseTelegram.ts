@@ -22,25 +22,22 @@ export function useTelegram() {
         webApp && webApp.close()
     }
 
-    const hideMainButton = (calback?: () => void) => {
-        if (!isTgEnabled(webApp)) {
+    const onToggleButton = () => {
+        if (!webApp || !webApp.MainButton) {
             return
         }
-        if (webApp?.MainButton.isVisible) {
-            webApp.MainButton.setParams(
-                {is_visible: false, text: ''}
-            )
+        if (webApp.MainButton.isVisible) {
+            webApp.MainButton.hide()
+        } else {
+            webApp.MainButton.show()
         }
-        calback && calback()
     }
 
     const hideBackButton = () => {
         if (!isTgEnabled(webApp)) {
             return
         }
-        if (webApp?.BackButton.isVisible) {
-            webApp?.BackButton.hide()
-        }
+        webApp?.BackButton.hide()
     }
 
     const showBackButton = (onClick: () => void) => {
@@ -87,7 +84,7 @@ export function useTelegram() {
         tgApi: {
             expand,
             onClose,
-            hideMainButton,
+            onToggleButton,
             showBackButton,
             hideBackButton,
             hapticFeedback,
