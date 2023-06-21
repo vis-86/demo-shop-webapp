@@ -24,14 +24,14 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
         if (!volume && product && product.volumes) {
             setVolume(product.volumes[0])
         }
-        tgApi.showBackButton(() => {
+        
+        const onBack = ()=> {
+            tgApi.hideBackButton()
+            tgApi.onToggleButton()
             router.back()
-            tgApi.setMainButtonParams({
-                is_visible: false,
-                text: '',
-            })
-            
-        })
+        }
+
+        tgApi.showBackButton(onBack)
     }, [router, product, volume, tgApi])
 
 
