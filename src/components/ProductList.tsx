@@ -6,6 +6,7 @@ import { Product } from '@/types/Product'
 import { getProductList } from '@/services/GetProductList'
 import useSWR from 'swr'
 import CartContext from '@/contexts/CartContext'
+import GoToOrderButton from './order/GoToOrder.button'
 
 const ProductList = () => {
     const { data: productList, isLoading } = useSWR("productList", getProductList);
@@ -29,7 +30,7 @@ const ProductList = () => {
             {productList && productList.map((item: Product) => (
                 <ProductItem item={item} key={item.id} cartCount={getProductCountInCart(item.id)}></ProductItem>
             ))}
-            
+            {cart && !cart.cartIsEmpty() && productList && <GoToOrderButton />}
         </div>
     );
 }
