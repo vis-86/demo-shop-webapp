@@ -80,6 +80,7 @@ export function useTelegram() {
         enabled: isTgEnabled(webApp),
         tg: webApp,
         tgApi: {
+            MainButton: webApp?.MainButton,
             expand,
             onClose,
             onToggleButton,

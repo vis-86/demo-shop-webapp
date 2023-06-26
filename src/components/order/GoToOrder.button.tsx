@@ -25,19 +25,17 @@ const GoToOrderButton = ({ products }: PropsWithChildren<Props>) => {
 
     useEffect(() => {
         if (!tgApi) return 
-        
-        if (totalAmount) {
-            tgApi.setMainButtonParams({
+
+        if (totalAmount > 0) {
+            tgApi.MainButton?.setParams({
                 is_visible: true,
                 text: 'К оплате' + totalAmount + ' ₽'
-            }, () => {
-                //todo переходим на экран с оплатой
+            });
+            tgApi.MainButton?.onClick(()=> {
+                //todo переходим на экран с оплато
             })
         } else {
-            tgApi.setMainButtonParams({
-                is_visible: false,
-                text: ''
-            })
+            tgApi.MainButton?.hide()
         }
     }, [tgApi, totalAmount])
 

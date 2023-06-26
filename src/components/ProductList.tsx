@@ -30,7 +30,7 @@ const ProductList = () => {
             {productList && productList.map((item: Product) => (
                 <ProductItem item={item} key={item.id} cartCount={getProductCountInCart(item.id)}></ProductItem>
             ))}
-            {cart && cart.products && <GoToOrderButton products={cart.products} />}
+            {cart && cart.products ? <GoToOrderButton products={cart.products} /> : 'Cart is not worked'}
         </div>
     );
 }
