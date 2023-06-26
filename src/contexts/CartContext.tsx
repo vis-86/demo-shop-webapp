@@ -24,7 +24,7 @@ export const CartProvider = ({ children }: { children?: ReactNode | undefined })
         return products.length === 0
     }
     const addProduct = useCallback((product: ProductInCart) => {
-        setProducts(products => [...products, product])
+        setProducts(state => [...state, product])
     }, [])
 
     const updateProduct = (product: ProductInCart) => {
