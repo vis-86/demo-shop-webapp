@@ -40,7 +40,7 @@ export const CartProvider = ({ children }: { children?: ReactNode | undefined })
     }
 
     const cartIsEmpty = () => {
-        return products.length > 0
+        return products.length === 0
     }
     const addProduct = (product: ProductInCart) => {
         console.log('count', product)

@@ -6,23 +6,22 @@ const GoToOrderButton = () => {
     const cart = useContext(CartContext)
     const { enabled: tgEnabeld, tgApi } = useTelegram()
 
-    const onGoToOrder = useCallback(()=> {
+    const onGoToOrder = useCallback(() => {
         //todo переходим на экран с оплатой
-        
     }, [])
 
     useEffect(() => {
         if (!tgEnabeld || !cart) return
-        if (!cart.cartIsEmpty()) {
-            tgApi.setMainButtonParams({
-                is_visible: true,
-                text: `Оплатить (${cart.getTotal()} ₽)`
-            }, onGoToOrder)
-        } else {
+        if (cart.cartIsEmpty()) {
             tgApi.setMainButtonParams({
                 is_visible: false,
                 text: ''
             })
+        } else {
+            tgApi.setMainButtonParams({
+                is_visible: true,
+                text: `Оплатить (${cart.getTotal()} ₽)`
+            }, onGoToOrder)
         }
     }, [tgEnabeld, tgApi, cart, onGoToOrder])
 
