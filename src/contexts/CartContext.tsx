@@ -1,5 +1,5 @@
 import { ProductInCart } from "@/types/Product";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useCallback, useState } from "react";
 
 type CartContextValue = {
     cartIsEmpty: () => boolean
@@ -23,9 +23,9 @@ export const CartProvider = ({ children }: { children?: ReactNode | undefined })
     const cartIsEmpty = () => {
         return products.length === 0
     }
-    const addProduct = (product: ProductInCart) => {
+    const addProduct = useCallback((product: ProductInCart) => {
         setProducts(products => [...products, product])
-    }
+    }, [])
 
     const updateProduct = (product: ProductInCart) => {
         setProducts(products => products.map(
