@@ -20,7 +20,7 @@ const GoToOrderButton = () => {
         } else {
             tgApi.setMainButtonParams({
                 is_visible: true,
-                text: `Оплатить (${cart.getTotal()} ₽)`
+                text: `Оплатить (${cart.getTotal().totalAmount} ₽)`
             }, onGoToOrder)
         }
     }, [tgEnabeld, tgApi, cart, onGoToOrder])
