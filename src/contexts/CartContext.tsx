@@ -43,7 +43,6 @@ export const CartProvider = ({ children }: { children?: ReactNode | undefined })
         return products.length === 0
     }
     const addProduct = (product: ProductInCart) => {
-        console.log('count', product)
         setProducts(products => [...products, product])
     }
 

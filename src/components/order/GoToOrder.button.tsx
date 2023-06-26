@@ -1,33 +1,47 @@
 import CartContext from "@/contexts/CartContext"
 import { useTelegram } from "@/hooks/UseTelegram"
-import { useCallback, useContext, useEffect } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 
 const GoToOrderButton = () => {
     const cart = useContext(CartContext)
     const { enabled: tgEnabeld, tgApi } = useTelegram()
+    const [totalAmount, setTotalAmount] = useState<string | null>(null)
 
     const onGoToOrder = useCallback(() => {
         //todo переходим на экран с оплатой
     }, [])
 
     useEffect(() => {
-        if (!tgEnabeld || !cart) return
-        if (cart.cartIsEmpty()) {
+        if (cart && !cart.cartIsEmpty()) {
+            setTotalAmount(`Оплатить (${cart.getTotal().totalAmount} ₽)`)
+        } else {
+            setTotalAmount(null)
+        }
+    }, [cart])
+
+    useEffect(() => {
+        if (!tgEnabeld) return
+
+        if (totalAmount) {
+            tgApi.setMainButtonParams({
+                is_visible: true,
+                text: totalAmount
+            }, onGoToOrder)
+        } else {
             tgApi.setMainButtonParams({
                 is_visible: false,
                 text: ''
             })
-        } else {
-            tgApi.setMainButtonParams({
-                is_visible: true,
-                text: `Оплатить (${cart.getTotal().totalAmount} ₽)`
-            }, onGoToOrder)
         }
-    }, [tgEnabeld, tgApi, cart, onGoToOrder])
+    }, [tgEnabeld, tgApi, totalAmount, onGoToOrder])
+
+    if (tgEnabeld || !totalAmount) {
+        return null
+    }
 
     return (
         <>
-            {!tgEnabeld && cart && <button onClick={onGoToOrder} type='button' className='button-add-to-cart'>{`Оплатить (${cart.getTotal().totalAmount} ₽)`}</button>}
+            <button onClick={onGoToOrder} type='button' className='button-add-to-cart'>{totalAmount}</button>
         </>
     )
 }
