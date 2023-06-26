@@ -13,10 +13,7 @@ const ProductList = () => {
     const cart = useContext(CartContext)
 
     const getProductCountInCart = (id: number): number | undefined => {
-        if (!cart) {
-            return
-        }
-        if (!cart.products || cart.products.length === 0) {
+        if (!cart || !cart.products || cart.products.length === 0) {
             return
         }
         const countList = cart.products.filter(s => s.id === id).map(({ count }) => count)

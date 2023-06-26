@@ -69,13 +69,11 @@ export function useTelegram() {
         params: MainButtonParams,
         onClick?: () => void
     ) => {
-        if (!isTgEnabled(webApp) || !webApp?.MainButton) {
-            return null
+        if (!webApp || !isTgEnabled(webApp) || !webApp?.MainButton) {
+            return
         }
-        webApp?.MainButton.setParams(params)
-        if (onClick) {
-            webApp?.MainButton.onClick(() => onClick())
-        }
+        webApp.MainButton.setParams(params)
+        onClick && webApp.MainButton.onClick(onClick)
     }
 
     return {

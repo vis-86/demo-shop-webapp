@@ -26,7 +26,9 @@ const GoToOrderButton = () => {
             tgApi.setMainButtonParams({
                 is_visible: true,
                 text: totalAmount
-            }, onGoToOrder)
+            }, ()=> {
+                onGoToOrder()
+            })
         } else {
             tgApi.setMainButtonParams({
                 is_visible: false,
