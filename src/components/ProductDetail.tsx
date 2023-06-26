@@ -1,6 +1,6 @@
 'use client'
 
-import { PropsWithChildren, useEffect, useState } from 'react'
+import { PropsWithChildren, useContext, useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { getProductById } from "@/services/GetProductList"
 import Image from 'next/image'
@@ -9,6 +9,7 @@ import { useTelegram } from '@/hooks/UseTelegram'
 import { useRouter } from 'next/navigation'
 import PlusIcon from './icons/plus'
 import MinusIcon from './icons/minus'
+import AddToCartButton from './cart/AddToCart.button'
 
 const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
     const router = useRouter()
@@ -26,38 +27,10 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
         }
     }, [product, volume])
 
-    useEffect(() => {
-        if (!volume) return
+    useEffect(() =>  tgApi.showBackButton(router.back), [router, tgApi])
 
-        const back = () => {
-            router.back()
-        }
-        tgApi.showBackButton(() => {
-            tgApi.onToggleButton()
-            back()
-        })
-
-        tgApi.setMainButtonParams({
-            is_visible: true,
-            text: `Добавить (${count * volume.price} ₽)`
-        }, () => {
-            tgApi.hideBackButton()
-            tgApi.setMainButtonParams({
-                is_visible: true,
-                text: `Оплатить ${count * volume.price} ₽`
-            })
-            back()
-        })
-
-    }, [router, volume, tgApi, count])
-
-    const onVolumeClick = (newVolume: ProductVolume) => {
-        setVolume(newVolume)
-    }
-    const onAddCount = () => {
-        tgApi.hapticFeedback()
-        setCount((prev) => prev + 1)
-    }
+    const onAddCount = () => setCount((prev) => prev + 1)
+    
     const onSubtractCount = () => {
         tgApi.hapticFeedback()
         setCount((prev) => {
@@ -67,6 +40,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
             return prev
         })
     }
+
     if (isLoading) {
         return <h3 className='text-center loader'>Loading... </h3>
     }
@@ -93,7 +67,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
                         className={'product-volume-item ' + (s.volume === volume?.volume ? 'product-volume-item--active' : '')}
                         onClick={() => {
                             tgApi.hapticFeedback()
-                            onVolumeClick(s)
+                            setVolume(s)
                         }} key={s.volume}
                     >
                         <div className={'volume-circle ' + 'volume-circle-' + s.volume} ></div>
@@ -109,6 +83,15 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
                 <div className='product-detail-counts'>{count}</div>
                 <button className='circle-btn' onClick={onAddCount}><PlusIcon /></button>
             </div>
+            {product && volume && <AddToCartButton
+                product={product}
+                volume={volume}
+                count={count}
+                callback={() => {
+                    tgApi.hideBackButton()
+                    router.back()
+                }}
+            />}
         </div>
 
     )

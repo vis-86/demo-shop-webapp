@@ -6,6 +6,15 @@ export type Product = {
 }
 
 export type ProductVolume = {
+    product?: Product,
     volume: number,
     price: number
+}
+
+export type ProductInCart = {
+    id: number
+    name: string,
+    imgThumbUrl: string,
+    volume: ProductVolume,
+    count: number
 }

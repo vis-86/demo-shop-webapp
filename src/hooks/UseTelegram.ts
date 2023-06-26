@@ -62,7 +62,7 @@ export function useTelegram() {
         if (!isTgEnabled(webApp)) {
             return
         }
-        webApp?.HapticFeedback.impactOccurred('soft')
+        webApp?.HapticFeedback.impactOccurred('medium')
     }
 
     const setMainButtonParams = (

@@ -8,18 +8,22 @@ import { PropsWithChildren } from "react"
 import { ProductDetail } from "./ProductDetail"
 
 type IProps = {
-    item: Product
+    item: Product,
+    cartCount?: number
 }
 
-const ProductItem = (props: PropsWithChildren<IProps>) => {
+const ProductItem = ({item, cartCount}: PropsWithChildren<IProps>) => {
     const {
         id,
         name,
         imgThumbUrl
-    } = props.item
+    } = item
 
     return <div className="product-item">
         <Link href={'/detail/' + id} className="product-item-card">
+            {cartCount && <div className="product-item-cart-count">
+                {cartCount}
+            </div>}
             <div className="product-item-img">
                 <Image src={imgThumbUrl} alt={name} width={80} height={80} priority={false}></Image>
             </div>

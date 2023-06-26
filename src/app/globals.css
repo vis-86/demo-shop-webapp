@@ -111,14 +111,30 @@ a {
   flex-basis: 50%;
   min-width: 0;
   flex-grow: 0;
-
 }
 .product-item-card {
   display: block;
   background-color: rgb(255, 177, 32);
-  border-radius: 15px;
+  border-radius: 15px;  
   text-align: center;
   overflow: hidden;
+  position: relative;
+}
+.product-item-cart-count {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 30px;
+  background-color: red;
+  padding: 2px;
+  height: 24px;
+  width: 24px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 2px 29px 7px rgba(34, 60, 80, 0.2);
 }
 .product-item-img {
   padding: 30px 10px 0 10px;
