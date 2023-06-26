@@ -19,8 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <div className='container'>
-          <TelegramBotComponent />
           <EcommerceComponent>
+            <TelegramBotComponent />
             {children}
           </EcommerceComponent>
         </div>
