@@ -12,6 +12,7 @@ export type ProductVolume = {
 }
 
 export type ProductInCart = {
+    uniqId: string
     id: number
     name: string,
     imgThumbUrl: string,

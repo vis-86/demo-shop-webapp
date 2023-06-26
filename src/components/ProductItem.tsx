@@ -12,12 +12,15 @@ type IProps = {
     cartCount?: number
 }
 
-const ProductItem = ({item, cartCount}: PropsWithChildren<IProps>) => {
+const ProductItem = ({ item, cartCount }: PropsWithChildren<IProps>) => {
     const {
         id,
         name,
-        imgThumbUrl
+        imgThumbUrl,
+        volumes
     } = item
+
+    const firstVolume = volumes[0]
 
     return <div className="product-item">
         <Link href={'/detail/' + id} className="product-item-card">
@@ -31,8 +34,8 @@ const ProductItem = ({item, cartCount}: PropsWithChildren<IProps>) => {
                 <div className="product-item-text">{name}</div>
                 <div className="product-item-line"></div>
                 <div className="product-item-price-info">
-                    <div className="product-item-price">от 60 ₽</div>
-                    <div className="product-item-volume">90 мл</div>
+                    <div className="product-item-price">от {firstVolume.price} ₽</div>
+                    <div className="product-item-volume">{firstVolume.volume} мл</div>
                 </div>
             </div>
         </Link>

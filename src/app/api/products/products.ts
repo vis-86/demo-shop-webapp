@@ -4,20 +4,12 @@ export const productList = [{
     imgThumbUrl: '/cup.svg',
     volumes: [
         {
-            volume: 200,
-            price: 90
+            volume: 90,
+            price: 60
         },
         {
-            volume: 300,
+            volume: 130,
             price: 150
-        },
-        {
-            volume: 400,
-            price: 210
-        },
-        {
-            volume: 600,
-            price: 270
         }
     ]
 }, {

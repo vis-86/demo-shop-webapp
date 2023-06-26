@@ -18,6 +18,7 @@ const AddToCartButton = ({ callback, product, volume, count }: PropsWithChildren
     const onAdd = useCallback(() => {
         if (cart && product) {
             cart.addProduct({
+                uniqId: product.id + "_" + volume.volume,
                 id: product.id,
                 imgThumbUrl: product.imgThumbUrl,
                 name: product.name,

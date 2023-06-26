@@ -9,12 +9,7 @@ type CartContextValue = {
     products: ProductInCart[]
 }
 
-type CartTotal = {
-    totalAmount: number,
-    count: number
-}
-
-const CartContext = createContext<CartContextValue | null>({
+const CartContext = createContext<CartContextValue>({
     products: [],
     cartIsEmpty: () => false,
     addProduct: () => { },
@@ -34,14 +29,14 @@ export const CartProvider = ({ children }: { children?: ReactNode | undefined })
 
     const updateProduct = (product: ProductInCart) => {
         setProducts(products => products.map(
-            item => item.id === product.id
+            item => item.uniqId === product.uniqId
                 ? { ...item, ...product }
                 : item
         ))
     }
 
     const removeProduct = (product: ProductInCart) => {
-        setProducts(products => products.filter(item => item.id !== product.id))
+        setProducts(products => products.filter(item => item.uniqId !== product.uniqId))
     }
 
     return (
