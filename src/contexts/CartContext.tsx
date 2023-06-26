@@ -34,8 +34,8 @@ export const CartProvider = ({ children }: { children?: ReactNode | undefined })
 
     const getTotal = (): CartTotal => {
         return {
-            totalAmount: products.map(item => item.volume.price).reduce((prev, next) => prev + next),
-            count: products.map(item => item.count).reduce((prev, next) => prev + next),
+            totalAmount: products.length > 0 ? products.map(({count, volume}) => count * volume.price).reduce((prev, next) => prev + next) : 0,
+            count: products.length > 0 ? products.map(item => item.count).reduce((prev, next) => prev + next) : 0
         }
     }
 
@@ -43,6 +43,7 @@ export const CartProvider = ({ children }: { children?: ReactNode | undefined })
         return products.length > 0
     }
     const addProduct = (product: ProductInCart) => {
+        console.log('count', product)
         setProducts(products => [...products, product])
     }
 

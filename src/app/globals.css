@@ -121,6 +121,7 @@ a {
   position: relative;
 }
 .product-item-cart-count {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   position: absolute;
   top: 10px;
   right: 10px;
