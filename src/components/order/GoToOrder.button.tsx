@@ -4,7 +4,7 @@ import { useCallback, useContext, useEffect, useState } from "react"
 
 const GoToOrderButton = () => {
     const cart = useContext(CartContext)
-    const { enabled: tgEnabeld, tgApi } = useTelegram()
+    const { enabled: tgEnabeld = false, tgApi } = useTelegram()
     const [totalAmount, setTotalAmount] = useState<string | null>(null)
 
     const onGoToOrder = useCallback(() => {
@@ -26,7 +26,7 @@ const GoToOrderButton = () => {
             tgApi.setMainButtonParams({
                 is_visible: true,
                 text: totalAmount
-            }, ()=> {
+            }, () => {
                 onGoToOrder()
             })
         } else {
