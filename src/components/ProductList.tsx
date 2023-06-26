@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useEffect } from 'react'
+import { useContext} from 'react'
 import { ProductItem } from './ProductItem'
 import { Product } from '@/types/Product'
 import { getProductList } from '@/services/GetProductList'

@@ -13,7 +13,11 @@ const GoToOrderButton = () => {
 
     useEffect(() => {
         if (cart && !cart.cartIsEmpty()) {
-            setTotalAmount(`Оплатить (${cart.getTotal().totalAmount} ₽)`)
+            let total = 0;
+            for (let product of cart.products) {
+                total += product.count * product.volume.price
+            }
+            setTotalAmount(`Оплатить (${total} ₽)`)
         } else {
             setTotalAmount(null)
         }
