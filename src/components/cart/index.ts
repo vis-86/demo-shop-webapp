@@ -1,3 +1,3 @@
-export * from './AddToCart.button'
-export * from './GoToOrder.button'
-export * from './Back.button'
+export {AddToCartButton} from './AddToCart.button'
+export {GoToOrderButton} from './GoToOrder.button'
+export {BackButton} from './Back.button'

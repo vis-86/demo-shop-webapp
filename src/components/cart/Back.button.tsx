@@ -9,14 +9,18 @@ const BackButton = (
     const cart = useContext(CartContext)
 
     useEffect(() => {
+        if (!cart.tg || !cart.tgEnabled) {
+            return
+        }
+        const theTg = cart.tg
+        theTg.BackButton.show()
         const onCliclk = () => {
-            cart.tg?.BackButton.hide()
             callback()
         }
-        cart.tg?.BackButton.show()
-        cart.tg?.BackButton.onClick(onCliclk)
+        theTg.BackButton.onClick(onCliclk)
         return () => {
-            cart.tg?.BackButton.offClick(onCliclk)
+            theTg.BackButton.hide()
+            theTg.BackButton.offClick(onCliclk)
         }
 
     }, [callback, cart])

@@ -38,7 +38,6 @@ const AddToCartButton = ({ callback, product, volume, count }: PropsWithChildren
         const theTg = cart.tg
 
         const onClick = () => {
-            theTg.BackButton.hide()
             cart.addProduct(
                 createCartProduct(product, volume, count)
             )
@@ -52,6 +51,7 @@ const AddToCartButton = ({ callback, product, volume, count }: PropsWithChildren
         theTg.MainButton?.onClick(onClick)
 
         return () => {
+            theTg.BackButton.isVisible && theTg.BackButton.hide()
             theTg.MainButton?.offClick(onClick)
         }
 

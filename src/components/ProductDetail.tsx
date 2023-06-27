@@ -10,6 +10,7 @@ import PlusIcon from './icons/plus'
 import MinusIcon from './icons/minus'
 import CartContext from '@/contexts/cart/TgCartProvider'
 import { AddToCartButton, BackButton } from './cart'
+import { impactOccurredMedium } from '@/TgUtils'
 
 const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
     const cart = useContext(CartContext)
@@ -26,11 +27,14 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
         }
     }, [product, volume])
 
-    
-    const onAddCount = () => setCount((prev) => prev + 1)
+
+    const onAddCount = () => {
+        impactOccurredMedium(cart.tg)
+        setCount((prev) => prev + 1)
+    }
 
     const onSubtractCount = () => {
-        cart.tg?.HapticFeedback.impactOccurred('medium')
+        impactOccurredMedium(cart.tg)
         setCount((prev) => {
             if (prev > 1) {
                 return prev - 1
@@ -45,7 +49,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
 
     return (
         <div className='product-detail'>
-            <BackButton callback={router.back}/>
+            <BackButton callback={router.back} />
             <div className='product-detail-card'>
                 <div className='product-detail-image'>
                     {product ? <Image src={product.imgThumbUrl} alt={product.name} width={140} height={140} priority={true}></Image> : null}
