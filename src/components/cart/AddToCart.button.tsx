@@ -1,5 +1,4 @@
 import CartContext from '@/contexts/CartContext'
-import { useTelegram } from '@/hooks/UseTelegram'
 import { Product, ProductVolume } from '@/types/Product'
 import { PropsWithChildren, useContext, useEffect } from 'react'
 
@@ -7,38 +6,39 @@ type Props = {
     callback: () => void,
     product: Product,
     volume: ProductVolume,
-    count: number
+    count: number,
+    tgEnabeld: boolean
 }
 
 const AddToCartButton = ({ callback, product, volume, count }: PropsWithChildren<Props>) => {
 
     const cart = useContext(CartContext)
-    const { enabled: tgEnabeld, tgApi } = useTelegram()
-
 
     useEffect(() => {
-        if (!volume || !tgApi) return
-
-        tgApi.MainButton?.setParams({
-            is_visible: true,
-            text: `Добавить (${count * volume.price} ₽)`
-        })
-        tgApi.MainButton?.onClick(() => {
-            tgApi.hideBackButton()
-            cart && cart.addProduct({
-                uniqId: product.id + "_" + volume.volume,
-                id: product.id,
-                imgThumbUrl: product.imgThumbUrl,
-                name: product.name,
-                volume,
-                count
+        if (cart.tg) {
+            cart.tg.MainButton?.setParams({
+                is_visible: true,
+                text: `Добавить (${count * volume.price} ₽)`
             })
-            callback()
-        })
+            cart.tg.MainButton?.onClick(() => {
+                cart.tg?.BackButton.isVisible && cart.tg?.BackButton.hide()
 
-    }, [callback, volume, tgApi, count, product, cart])
+                cart && cart.addProduct({
+                    uniqId: product.id + "_" + volume.volume,
+                    id: product.id,
+                    imgThumbUrl: product.imgThumbUrl,
+                    name: product.name,
+                    volume,
+                    count
+                })
 
-    if (tgEnabeld) {
+                callback()
+            })
+        }
+
+    }, [callback, volume, count, product, cart])
+
+    if (cart.tgEnabled) {
         return null
     }
 

@@ -1,14 +1,13 @@
-import { useTelegram } from "@/hooks/UseTelegram"
 import { ProductInCart } from "@/types/Product"
-import { PropsWithChildren, useCallback, useEffect, useState } from "react"
+import { PropsWithChildren, useEffect, useState } from "react"
 
 type Props = {
-    products: ProductInCart[]
+    products: ProductInCart[],
+    tgEnabled: boolean
 }
 
-const GoToOrderButton = ({ products }: PropsWithChildren<Props>) => {
+const GoToOrderButton = ({ products, tgEnabled }: PropsWithChildren<Props>) => {
 
-    const { enabled: tgEnabeld = false, tgApi } = useTelegram()
     const [totalAmount, setTotalAmount] = useState<number>(0)
 
     useEffect(() => {
@@ -23,23 +22,7 @@ const GoToOrderButton = ({ products }: PropsWithChildren<Props>) => {
         }
     }, [products])
 
-    useEffect(() => {
-        if (!tgApi) return 
-
-        if (totalAmount > 0) {
-            tgApi.MainButton?.setParams({
-                is_visible: true,
-                text: 'К оплате' + totalAmount + ' ₽'
-            });
-            tgApi.MainButton?.onClick(()=> {
-                //todo переходим на экран с оплато
-            })
-        } else {
-            tgApi.MainButton?.hide()
-        }
-    }, [tgApi, totalAmount])
-
-    if (tgEnabeld) {
+    if (tgEnabled) {
         return <>
             <table className="top-bar" style={{ border: 0, width: '100%' }}>
                 <tr>

@@ -1,7 +1,7 @@
 import './globals.css'
 import { Oswald } from 'next/font/google'
-import { TelegramBotComponent } from '@/components/TelegramBotComponent'
 import EcommerceComponent from '@/components/EcommerceComponent'
+import { TelegramBotComponent } from '@/components/TelegramBotComponent'
 
 const roboto = Oswald({ subsets: ['cyrillic', 'cyrillic-ext', 'latin'] })
 
@@ -19,8 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <div className='container'>
+          <TelegramBotComponent />
           <EcommerceComponent>
-            <TelegramBotComponent />
             {children}
           </EcommerceComponent>
         </div>

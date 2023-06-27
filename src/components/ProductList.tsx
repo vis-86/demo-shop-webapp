@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext} from 'react'
+import { useContext } from 'react'
 import { ProductItem } from './ProductItem'
 import { Product } from '@/types/Product'
 import { getProductList } from '@/services/GetProductList'
@@ -30,7 +30,7 @@ const ProductList = () => {
             {productList && productList.map((item: Product) => (
                 <ProductItem item={item} key={item.id} cartCount={getProductCountInCart(item.id)}></ProductItem>
             ))}
-            {cart && cart.products ? <GoToOrderButton products={[...cart.products]} /> : 'Cart is not worked'}
+            {cart && cart.products ? <GoToOrderButton products={cart.products} tgEnabled={cart.tgEnabled} /> : 'Cart is not worked'}
         </div>
     );
 }

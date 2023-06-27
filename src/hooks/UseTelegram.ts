@@ -1,86 +1,84 @@
+'use client'
+
 import { useEffect, useState } from "react"
 
-const isTgEnabled = (webApp: WebApp | null | undefined): boolean => {
-    return webApp && webApp.initDataUnsafe && webApp.initDataUnsafe.query_id ? true : false
-}
-
 export function useTelegram() {
-    const [webApp, setWebApp] = useState<WebApp | null>()
-    const [user, setUser] = useState<WebAppUser>()
-
+    const [tg, setTg] = useState<WebApp | null>(null)
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        const tg = window.Telegram ? window.Telegram.WebApp : null
-        tg && tg.ready()
-        setWebApp(tg)
-    }, [])
+        if (loading) return
+        const _tg = window && window.Telegram ? window.Telegram.WebApp : null
+        setTg(window && window.Telegram ? window.Telegram.WebApp : null)
+        console.log('TG_RENDER', _tg)
+    }, [loading])
 
-    useEffect(() => {
-        setUser(webApp?.initDataUnsafe?.user)
-    }, [webApp])
-
+    const isTgEnabled = (): boolean => {
+        return tg && tg.initDataUnsafe && tg.initDataUnsafe.query_id ? true : false
+    }
     const onClose = () => {
-        webApp && webApp.close()
+        tg && tg.close()
     }
 
     const onToggleButton = () => {
-        if (!webApp || !webApp.MainButton) {
+        if (!tg || !tg.MainButton) {
             return
         }
-        if (webApp.MainButton.isVisible) {
-            webApp.MainButton.hide()
+        if (tg.MainButton.isVisible) {
+            tg.MainButton.hide()
         } else {
-            webApp.MainButton.show()
+            tg.MainButton.show()
         }
     }
 
     const hideBackButton = () => {
-        if (!isTgEnabled(webApp)) {
+        if (!isTgEnabled()) {
             return
         }
-        webApp?.BackButton.hide()
+        tg?.BackButton.hide()
     }
 
     const showBackButton = (onClick: () => void) => {
-        if (!isTgEnabled(webApp)) {
+        if (!isTgEnabled()) {
             return
         }
-        webApp?.BackButton.show()
-        webApp?.BackButton.onClick(() => {
+        tg?.BackButton.show()
+        tg?.BackButton.onClick(() => {
             hideBackButton()
             onClick()
         })
     }
 
     const expand = () => {
-        if (!isTgEnabled(webApp)) {
+        if (!isTgEnabled()) {
             return
         }
-        webApp?.expand();
+        tg?.expand();
     }
 
     const hapticFeedback = () => {
-        if (!isTgEnabled(webApp)) {
+        if (!isTgEnabled()) {
             return
         }
-        webApp?.HapticFeedback.impactOccurred('medium')
+        tg?.HapticFeedback.impactOccurred('medium')
     }
 
     const setMainButtonParams = (
         params: MainButtonParams,
         onClick?: () => void
     ) => {
-        if (!webApp || !isTgEnabled(webApp) || !webApp?.MainButton) {
+        if (!tg || !isTgEnabled() || !tg?.MainButton) {
             return
         }
-        webApp.MainButton.setParams(params)
-        onClick && webApp.MainButton.onClick(onClick)
+        tg.MainButton.setParams(params)
+        onClick && tg.MainButton.onClick(onClick)
     }
 
     return {
-        enabled: isTgEnabled(webApp),
-        tg: webApp,
+        enabled: isTgEnabled(),
+        setLoading,
+        tg,
         tgApi: {
-            MainButton: webApp?.MainButton,
+            MainButton: tg?.MainButton,
             expand,
             onClose,
             onToggleButton,
@@ -88,7 +86,6 @@ export function useTelegram() {
             hideBackButton,
             hapticFeedback,
             setMainButtonParams
-        },
-        user
+        }
     }
 }

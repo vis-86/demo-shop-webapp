@@ -1,5 +1,6 @@
+import { useTelegram } from "@/hooks/UseTelegram";
 import { ProductInCart } from "@/types/Product";
-import { ReactNode, createContext, useCallback, useState } from "react";
+import { ReactNode, createContext, useCallback, useEffect, useState } from "react";
 
 type CartContextValue = {
     cartIsEmpty: () => boolean
@@ -7,18 +8,23 @@ type CartContextValue = {
     updateProduct: (product: ProductInCart) => void
     removeProduct: (product: ProductInCart) => void
     products: ProductInCart[]
+    tgEnabled: boolean
+    tg: WebApp | null
 }
 
 const CartContext = createContext<CartContextValue>({
-    products: [],
     cartIsEmpty: () => false,
     addProduct: () => { },
     updateProduct: () => { },
-    removeProduct: () => { }
+    removeProduct: () => { },
+    products: [],
+    tgEnabled: false,
+    tg: null
 });
 
 export const CartProvider = ({ children }: { children?: ReactNode | undefined }): ReactNode => {
     const [products, setProducts] = useState<ProductInCart[]>([])
+    const { tg, enabled: tgEnabled = false } = useTelegram()
 
     const cartIsEmpty = () => {
         return products.length === 0
@@ -42,10 +48,12 @@ export const CartProvider = ({ children }: { children?: ReactNode | undefined })
     return (
         <CartContext.Provider value={{
             products,
-            cartIsEmpty:cartIsEmpty,
-            addProduct:addProduct,
-            updateProduct:updateProduct,
-            removeProduct:removeProduct,
+            tgEnabled,
+            tg,
+            cartIsEmpty: cartIsEmpty,
+            addProduct: addProduct,
+            updateProduct: updateProduct,
+            removeProduct: removeProduct,
         }}>
             {children}
         </CartContext.Provider>

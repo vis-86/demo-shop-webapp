@@ -5,13 +5,14 @@ import useSWR from 'swr'
 import { getProductById } from "@/services/GetProductList"
 import Image from 'next/image'
 import { ProductVolume } from '@/types/Product'
-import { useTelegram } from '@/hooks/UseTelegram'
 import { useRouter } from 'next/navigation'
 import PlusIcon from './icons/plus'
 import MinusIcon from './icons/minus'
 import AddToCartButton from './cart/AddToCart.button'
+import CartContext from '@/contexts/CartContext'
 
-const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
+const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
+    const cart = useContext(CartContext)
     const router = useRouter()
     const { id } = props
     const { data: product, isLoading } = useSWR(id + '', getProductById);
@@ -19,20 +20,26 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
     const [volume, setVolume] = useState<ProductVolume>()
     const [count, setCount] = useState<number>(1)
 
-    const { enabled: tgEnabeld, tgApi } = useTelegram()
-
     useEffect(() => {
         if (!volume && product && product.volumes) {
             setVolume(product.volumes[0])
         }
     }, [product, volume])
 
-    useEffect(() =>  tgApi.showBackButton(router.back), [router, tgApi])
+    useEffect(() => {
+        cart.tg?.BackButton.show()
+        cart.tg?.BackButton.onClick(router.back)
+        console.log('cart', cart)
+        return () => {
+            cart.tg?.BackButton.offClick(router.back)
+        }
+
+    }, [router, cart])
 
     const onAddCount = () => setCount((prev) => prev + 1)
-    
+
     const onSubtractCount = () => {
-        tgApi.hapticFeedback()
+        cart.tg?.HapticFeedback.impactOccurred('medium')
         setCount((prev) => {
             if (prev > 1) {
                 return prev - 1
@@ -47,7 +54,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
 
     return (
         <div className='product-detail'>
-            {!tgEnabeld && <div className='top-bar'>
+            {!cart.tgEnabled && <div className='top-bar'>
                 <a href='#' onClick={() => {
                     router.back()
                 }}>Назад</a>
@@ -66,7 +73,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
                     return <div
                         className={'product-volume-item ' + (s.volume === volume?.volume ? 'product-volume-item--active' : '')}
                         onClick={() => {
-                            tgApi.hapticFeedback()
+                            cart.tg?.HapticFeedback.impactOccurred('medium')
                             setVolume(s)
                         }} key={s.volume}
                     >
@@ -87,8 +94,9 @@ const ProductDetail = (props: PropsWithChildren<{ id: number }>) => {
                 product={product}
                 volume={volume}
                 count={count}
+                tgEnabeld={cart.tgEnabled}
                 callback={() => {
-                    tgApi.hideBackButton()
+                    cart.tg?.BackButton.hide()
                     router.back()
                 }}
             />}
