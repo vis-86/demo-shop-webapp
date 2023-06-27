@@ -45,7 +45,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
 
     return (
         <div className='product-detail'>
-            <BackButton callback={router.back} />
+            <BackButton callback={router.back}/>
             <div className='product-detail-card'>
                 <div className='product-detail-image'>
                     {product ? <Image src={product.imgThumbUrl} alt={product.name} width={140} height={140} priority={true}></Image> : null}

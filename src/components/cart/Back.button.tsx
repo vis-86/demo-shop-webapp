@@ -1,14 +1,20 @@
 import { CartContext } from '@/contexts/cart'
 import React, { useContext, useEffect } from 'react'
 
-const BackButton = ({ callback }: { callback: () => void }) => {
+const BackButton = (
+    { callback }: { callback: () => void }
+) => {
     const cart = useContext(CartContext)
 
     useEffect(() => {
+        const onCliclk = () => {
+            cart.tg?.BackButton.hide()
+            callback()
+        }
         cart.tg?.BackButton.show()
-        cart.tg?.BackButton.onClick(callback)
+        cart.tg?.BackButton.onClick(onCliclk)
         return () => {
-            cart.tg?.BackButton.offClick(callback)
+            cart.tg?.BackButton.offClick(onCliclk)
         }
 
     }, [callback, cart])
