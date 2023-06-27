@@ -8,6 +8,7 @@ import { getProductList } from '@/services/GetProductList'
 import { CartContext } from '@/contexts/cart'
 import { GoToOrderButton } from './cart'
 
+const debug = false
 
 const ProductList = () => {
     const { data: productList, isLoading } = useSWR("productList", getProductList);
@@ -28,6 +29,8 @@ const ProductList = () => {
         <h3 className='text-center loader'>Loading... </h3>
     ) : (
         <div className='product-container'>
+            {debug && <pre>{JSON.stringify(cart)}</pre>}
+
             {productList && productList.map((item: Product) => (
                 <ProductItem item={item} key={item.id} cartCount={getProductCountInCart(item.id)}></ProductItem>
             ))}

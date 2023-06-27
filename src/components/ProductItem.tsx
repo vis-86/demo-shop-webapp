@@ -5,7 +5,6 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { PropsWithChildren } from "react"
-import { ProductDetail } from "./ProductDetail"
 
 type IProps = {
     item: Product,

@@ -16,10 +16,8 @@ export const TgCartProvider = ({ children }: { children?: ReactNode | undefined 
         if (tgScriptReady) {
             console.log('TG INIT')
             const tg = tgApp()
-            if (tg && tg !== tgApp()) {
-                setTg(tg)
-                setTgEnabled(tg && tg.initDataUnsafe && tg.initDataUnsafe.query_id ? true : false)
-            }
+            setTg(tg)
+            setTgEnabled(tg && tg.initDataUnsafe && tg.initDataUnsafe.query_id ? true : false)
         }
     }, [tgApp, tgScriptReady, tgEnabled])
 
