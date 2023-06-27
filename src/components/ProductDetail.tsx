@@ -87,7 +87,6 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
                 count={count}
                 tgEnabeld={cart.tgEnabled}
                 callback={() => {
-                    cart.tg?.BackButton.hide()
                     router.back()
                 }}
             />}

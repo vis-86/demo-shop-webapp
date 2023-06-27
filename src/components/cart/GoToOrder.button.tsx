@@ -1,5 +1,6 @@
 'use client'
 
+import { impactOccurredMedium } from "@/TgUtils"
 import { CartContext } from "@/contexts/cart"
 import { useContext, useEffect } from "react"
 
@@ -8,15 +9,27 @@ const GoToOrderButton = () => {
     const cart = useContext(CartContext)
 
     useEffect(() => {
+        if (cart === null || cart.tg === null || !cart.tgEnabled) {
+            return
+        }
+        const theTg = cart.tg
+
+        theTg.BackButton.isVisible && theTg.BackButton.hide()
+
         if (cart.cartIsEmpty()) {
-            cart.tg?.MainButton.hide()
+            theTg.MainButton.hide()
         } else {
-            cart.tg?.MainButton.setParams({
+            const onClick = () => {
+                impactOccurredMedium(theTg)
+                alert('Скоро будет экран с оплатой')
+            }
+            theTg.MainButton.setParams({
                 is_visible: true,
                 text: `Оплатить ${cart.totalAmount()} ₽`
             })
+            theTg.MainButton.onClick(onClick)
             return () => {
-                //todo: click event off
+                theTg.MainButton.offClick(onClick)
             }
         }
     }, [cart])
