@@ -35,23 +35,24 @@ const AddToCartButton = ({ callback, product, volume, count }: PropsWithChildren
         if (cart === null || cart.tg === null || !cart.tgEnabled) {
             return
         }
+        const theTg = cart.tg
 
-        cart.tg.MainButton?.setParams({
+        const onClick = () => {
+            theTg.BackButton.hide()
+            cart.addProduct(
+                createCartProduct(product, volume, count)
+            )
+            callback()
+        }
+        theTg.MainButton?.setParams({
             is_visible: true,
             text: `Добавить (${count * volume.price} ₽)`
         })
-        const onClick = () => {
-            cart.tg?.BackButton.isVisible && cart.tg?.BackButton.hide()
 
-            cart && cart.addProduct(
-                createCartProduct(product, volume, count)
-            )
+        theTg.MainButton?.onClick(onClick)
 
-            callback()
-        }
-        cart.tg.MainButton?.onClick(onClick)
         return () => {
-            cart && cart.tg && cart.tg.MainButton?.offClick(onClick)
+            theTg.MainButton?.offClick(onClick)
         }
 
 
