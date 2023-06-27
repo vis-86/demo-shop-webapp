@@ -1,3 +1,5 @@
+'use client'
+
 import { CartContext } from "@/contexts/cart"
 import { useContext, useEffect } from "react"
 
@@ -23,14 +25,14 @@ const GoToOrderButton = () => {
         return <>
             <table className="top-bar" style={{ border: 0, width: '100%' }}>
                 <tr>
-                    <th>Name</th>
+                    <th style={{ textAlign: 'left' }}>Name</th>
                     <th>Volume</th>
                     <th>Count</th>
                     <th style={{ textAlign: 'right' }}>Amount</th>
                 </tr>
 
                 {cart.products && cart.products.map(s => <tr key={s.id + s.volume.volume}>
-                    <td className="text-center">{s.name}</td>
+                    <td style={{ textAlign: 'left' }} className="text-center">{s.name}</td>
                     <td className="text-center">{s.volume.volume}</td>
                     <td className="text-center">{s.count}</td>
                     <td style={{ textAlign: 'right' }} className="text-center">{s.volume.price * s.count} ₽</td>

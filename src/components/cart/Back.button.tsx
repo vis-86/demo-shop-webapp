@@ -1,3 +1,5 @@
+'use client'
+
 import { CartContext } from '@/contexts/cart'
 import React, { useContext, useEffect } from 'react'
 

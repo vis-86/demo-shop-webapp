@@ -1,3 +1,5 @@
+'use client'
+
 import CartContext from '@/contexts/cart/TgCartProvider'
 import { Product, ProductVolume } from '@/types/Product'
 import { PropsWithChildren, useContext, useEffect } from 'react'
