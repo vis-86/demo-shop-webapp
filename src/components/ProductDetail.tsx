@@ -8,8 +8,8 @@ import { ProductVolume } from '@/types/Product'
 import { useRouter } from 'next/navigation'
 import PlusIcon from './icons/plus'
 import MinusIcon from './icons/minus'
-import AddToCartButton from './cart/AddToCart.button'
-import CartContext from '@/contexts/CartContext'
+import CartContext from '@/contexts/cart/TgCartProvider'
+import { AddToCartButton, BackButton } from './cart'
 
 const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
     const cart = useContext(CartContext)
@@ -26,16 +26,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
         }
     }, [product, volume])
 
-    useEffect(() => {
-        cart.tg?.BackButton.show()
-        cart.tg?.BackButton.onClick(router.back)
-        console.log('cart', cart)
-        return () => {
-            cart.tg?.BackButton.offClick(router.back)
-        }
-
-    }, [router, cart])
-
+    
     const onAddCount = () => setCount((prev) => prev + 1)
 
     const onSubtractCount = () => {
@@ -54,11 +45,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
 
     return (
         <div className='product-detail'>
-            {!cart.tgEnabled && <div className='top-bar'>
-                <a href='#' onClick={() => {
-                    router.back()
-                }}>Назад</a>
-            </div>}
+            <BackButton callback={router.back} />
             <div className='product-detail-card'>
                 <div className='product-detail-image'>
                     {product ? <Image src={product.imgThumbUrl} alt={product.name} width={140} height={140} priority={true}></Image> : null}

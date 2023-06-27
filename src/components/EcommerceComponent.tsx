@@ -1,12 +1,12 @@
 'use client'
 
-import { CartProvider } from "@/contexts/CartContext"
+import { TgCartProvider } from "@/contexts/cart/"
 
 const EcommerceComponent = (props: React.PropsWithChildren) => {
     return (
-        <CartProvider>
+        <TgCartProvider>
             {props.children}
-        </CartProvider>
+        </TgCartProvider>
     )
 }
 

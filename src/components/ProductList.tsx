@@ -1,12 +1,13 @@
 'use client'
 
 import { useContext } from 'react'
+import useSWR from 'swr'
 import { ProductItem } from './ProductItem'
 import { Product } from '@/types/Product'
 import { getProductList } from '@/services/GetProductList'
-import useSWR from 'swr'
-import CartContext from '@/contexts/CartContext'
-import GoToOrderButton from './order/GoToOrder.button'
+import { CartContext } from '@/contexts/cart'
+import { GoToOrderButton } from './cart'
+
 
 const ProductList = () => {
     const { data: productList, isLoading } = useSWR("productList", getProductList);
@@ -30,7 +31,7 @@ const ProductList = () => {
             {productList && productList.map((item: Product) => (
                 <ProductItem item={item} key={item.id} cartCount={getProductCountInCart(item.id)}></ProductItem>
             ))}
-            {cart && cart.products ? <GoToOrderButton products={cart.products} tgEnabled={cart.tgEnabled} /> : 'Cart is not worked'}
+            <GoToOrderButton />
         </div>
     );
 }

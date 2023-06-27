@@ -1,28 +1,25 @@
-import { ProductInCart } from "@/types/Product"
-import { PropsWithChildren, useEffect, useState } from "react"
+import { CartContext } from "@/contexts/cart"
+import { useContext, useEffect } from "react"
 
-type Props = {
-    products: ProductInCart[],
-    tgEnabled: boolean
-}
+const GoToOrderButton = () => {
 
-const GoToOrderButton = ({ products, tgEnabled }: PropsWithChildren<Props>) => {
-
-    const [totalAmount, setTotalAmount] = useState<number>(0)
+    const cart = useContext(CartContext)
 
     useEffect(() => {
-        if (products && products.length > 0) {
-            let total = 0;
-            for (let product of products) {
-                total += product.count * product.volume.price
-            }
-            setTotalAmount(total)
+        if (cart.cartIsEmpty()) {
+            cart.tg?.MainButton.hide()
         } else {
-            setTotalAmount(0)
+            cart.tg?.MainButton.setParams({
+                is_visible: true,
+                text: `Оплатить ${cart.totalAmount()} ₽`
+            })
+            return () => {
+                //todo: click event off
+            }
         }
-    }, [products])
+    }, [cart])
 
-    if (tgEnabled) {
+    if (cart.tgEnabled) {
         return <>
             <table className="top-bar" style={{ border: 0, width: '100%' }}>
                 <tr>
@@ -32,14 +29,14 @@ const GoToOrderButton = ({ products, tgEnabled }: PropsWithChildren<Props>) => {
                     <th style={{ textAlign: 'right' }}>Amount</th>
                 </tr>
 
-                {products && products.map(s => <tr key={s.id + s.volume.volume}>
+                {cart.products && cart.products.map(s => <tr key={s.id + s.volume.volume}>
                     <td className="text-center">{s.name}</td>
                     <td className="text-center">{s.volume.volume}</td>
                     <td className="text-center">{s.count}</td>
-                    <td style={{ textAlign: 'right' }} className="text-center">{s.volume.price * s.count}  ₽</td>
+                    <td style={{ textAlign: 'right' }} className="text-center">{s.volume.price * s.count} ₽</td>
                 </tr>)}
                 <tr>
-                    <td style={{ textAlign: 'right' }} colSpan={4} >{totalAmount}</td>
+                    <td style={{ textAlign: 'right' }} colSpan={4} >{cart.totalAmount()}</td>
                 </tr>
             </table>
 
@@ -55,10 +52,10 @@ const GoToOrderButton = ({ products, tgEnabled }: PropsWithChildren<Props>) => {
                 type='button'
                 className='button-add-to-cart'
             >
-                {totalAmount}
+                {cart.totalAmount()} ₽
             </button>
         </>
     )
 }
 
-export default GoToOrderButton
+export { GoToOrderButton }
