@@ -2,11 +2,12 @@
 
 import { impactOccurredMedium } from "@/TgUtils"
 import { CartContext } from "@/contexts/cart"
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { useContext, useEffect } from "react"
+import { BackButton } from "../cart"
+import { useRouter } from "next/navigation"
 
-const GoToOrderButton = () => {
-
+const OrderView = () => {
     const cart = useContext(CartContext)
     const router = useRouter()
 
@@ -16,17 +17,16 @@ const GoToOrderButton = () => {
         }
         const theTg = cart.tg
 
-        theTg.BackButton.isVisible && theTg.BackButton.hide()
-
         if (cart.cartIsEmpty()) {
             theTg.MainButton.hide()
         } else {
             const onClick = () => {
-                router.push('/order')
+                impactOccurredMedium(theTg)
+                alert('Скоро будет экран с оплатой')
             }
             theTg.MainButton.setParams({
                 is_visible: true,
-                text: `Посмотреть заказ`
+                text: `Оплатить ${cart.totalAmount()} ₽`
             })
             theTg.MainButton.onClick(onClick)
 
@@ -34,10 +34,15 @@ const GoToOrderButton = () => {
                 theTg.MainButton.offClick(onClick)
             }
         }
-    }, [cart, router])
+    }, [cart])
 
-    if (cart.tgEnabled) {
-        return <>
+    if (cart.cartIsEmpty()) {
+        return <Link href={'/'}>Сделать заказ</Link>
+    }
+
+    return (
+        <div>
+            <BackButton callback={router.back} />
             <table className="top-bar" style={{ border: 0, width: '100%' }}>
                 <tr>
                     <th style={{ textAlign: 'left' }}>Name</th>
@@ -53,27 +58,11 @@ const GoToOrderButton = () => {
                     <td style={{ textAlign: 'right' }} className="text-center">{s.volume.price * s.count} ₽</td>
                 </tr>)}
                 <tr>
-                    <td style={{ textAlign: 'right' }} colSpan={4} >{cart.totalAmount()}</td>
+                    <td style={{ textAlign: 'right' }} colSpan={4} >Итого: {cart.totalAmount()} ₽</td>
                 </tr>
             </table>
-
-        </>
-    }
-
-    return (
-        <>
-            <button
-                onClick={() => {
-                    //todo переходим на экран с оплатой
-                    router.push('/order')
-                }}
-                type='button'
-                className='button-add-to-cart'
-            >
-                {cart.totalAmount()} ₽
-            </button>
-        </>
+        </div>
     )
 }
 
-export { GoToOrderButton }
+export { OrderView }
