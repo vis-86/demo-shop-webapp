@@ -37,6 +37,10 @@ const GoToOrderButton = () => {
         }
     }, [cart, router])
 
+    if (cart.tgEnabled) {
+        return <></>
+    }
+
     return (
         <>
             <button
