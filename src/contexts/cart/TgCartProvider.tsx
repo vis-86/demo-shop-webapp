@@ -14,7 +14,6 @@ export const TgCartProvider = ({ children }: { children?: ReactNode | undefined 
 
     useEffect(() => {
         if (tgScriptReady) {
-            console.log('TG INIT')
             const tg = tgApp()
             setTg(tg)
             setTgEnabled(tg && tg.initDataUnsafe && tg.initDataUnsafe.query_id ? true : false)
@@ -62,7 +61,6 @@ export const TgCartProvider = ({ children }: { children?: ReactNode | undefined 
             <Script
                 src="https://telegram.org/js/telegram-web-app.js"
                 onLoad={() => {
-                    console.log("LOADED")
                     setTgScriptReady(true)
                 }} />
             {children}

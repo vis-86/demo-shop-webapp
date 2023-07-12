@@ -5,11 +5,13 @@ export const productList = [{
     volumes: [
         {
             volume: 90,
-            price: 60
+            price: 60,
+            inch: 'мл'
         },
         {
             volume: 130,
-            price: 150
+            price: 150,
+            inch: 'мл'
         }
     ]
 }, {
@@ -19,19 +21,23 @@ export const productList = [{
     volumes: [
         {
             volume: 200,
-            price: 90
+            price: 90,
+            inch: 'мл'
         },
         {
             volume: 300,
-            price: 150
+            price: 150,
+            inch: 'мл'
         },
         {
             volume: 400,
-            price: 210
+            price: 210,
+            inch: 'мл'
         },
         {
             volume: 600,
-            price: 270
+            price: 270,
+            inch: 'мл'
         }
     ]
 }, {
@@ -41,19 +47,23 @@ export const productList = [{
     volumes: [
         {
             volume: 200,
-            price: 90
+            price: 90,
+            inch: 'мл'
         },
         {
             volume: 300,
-            price: 150
+            price: 150,
+            inch: 'мл'
         },
         {
             volume: 400,
-            price: 210
+            price: 210,
+            inch: 'мл'
         },
         {
             volume: 600,
-            price: 270
+            price: 270,
+            inch: 'мл'
         }
     ]
 }, {
@@ -63,19 +73,23 @@ export const productList = [{
     volumes: [
         {
             volume: 200,
-            price: 90
+            price: 90,
+            inch: 'мл'
         },
         {
             volume: 300,
-            price: 150
+            price: 150,
+            inch: 'мл'
         },
         {
             volume: 400,
-            price: 210
+            price: 210,
+            inch: 'мл'
         },
         {
             volume: 600,
-            price: 270
+            price: 270,
+            inch: 'мл'
         }
     ]
 }]

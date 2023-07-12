@@ -8,6 +8,7 @@ export type Product = {
 export type ProductVolume = {
     product?: Product,
     volume: number,
+    inch: string,
     price: number
 }
 

@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useContext, useEffect } from "react"
 import { BackButton } from "../cart"
 import { useRouter } from "next/navigation"
+import OrderItem from "./OrderItem"
 
 const OrderView = () => {
     const cart = useContext(CartContext)
@@ -37,31 +38,35 @@ const OrderView = () => {
     }, [cart])
 
     if (cart.cartIsEmpty()) {
-        return <Link href={'/'}>Сделать заказ</Link>
+        return <div className="container-space text-center">
+            <div className="order-header-wrap">
+                <h1>Карзина пуста</h1>
+            </div>
+            <div className="order-view-empty">
+                <Link className="btn" href={'/'}>Сделать заказ</Link>
+            </div>
+        </div>
     }
 
     return (
-        <div>
+        <>
             <BackButton callback={router.back} />
-            <table className="top-bar" style={{ border: 0, width: '100%' }}>
-                <tr>
-                    <th style={{ textAlign: 'left' }}>Name</th>
-                    <th>Volume</th>
-                    <th>Count</th>
-                    <th style={{ textAlign: 'right' }}>Amount</th>
-                </tr>
+            <div className="order-overview container-space">
+                <div className="order-header-wrap">
+                    <h2 className="cafe-order-header">Ваш заказ</h2>
+                </div>
+                <div className="order-items">
+                    {cart.products && cart.products.map(s =>
+                        <OrderItem
+                            key={s.id + s.volume.volume}
+                            product={s}
+                            onRemoveClick={() => cart.removeProduct(s)}
+                        />
+                    )}
+                </div>
+            </div>
+        </>
 
-                {cart.products && cart.products.map(s => <tr key={s.id + s.volume.volume}>
-                    <td style={{ textAlign: 'left' }} className="text-center">{s.name}</td>
-                    <td className="text-center">{s.volume.volume}</td>
-                    <td className="text-center">{s.count}</td>
-                    <td style={{ textAlign: 'right' }} className="text-center">{s.volume.price * s.count} ₽</td>
-                </tr>)}
-                <tr>
-                    <td style={{ textAlign: 'right' }} colSpan={4} >Итого: {cart.totalAmount()} ₽</td>
-                </tr>
-            </table>
-        </div>
     )
 }
 
