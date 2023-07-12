@@ -21,7 +21,7 @@ const OrderItem = ({ product, onRemoveClick }: PropsWithChildren<Props>) => {
                 </div>
                 <div className="order-item-description-bottom">
                     <div className="order-item-value">{product.volume.volume} {product.volume.inch}</div>
-                    <div className="order-item-count">x {product.count}</div>
+                    <div className="order-item-count">{product.count} x {product.volume.price} ₽</div>
                 </div>
             </div>
             <div className="order-item-actions">

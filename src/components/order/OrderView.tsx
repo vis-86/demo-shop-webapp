@@ -67,6 +67,9 @@ const OrderView = () => {
                         />
                     )}
                 </div>
+                <div className="order-items-total">
+                    Итого: {cart.totalAmount()}  ₽
+                </div>
             </div>
         </>
 

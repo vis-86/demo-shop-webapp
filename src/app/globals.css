@@ -321,6 +321,11 @@ a {
   align-items: center;
   justify-content: flex-end;
 }
+.order-items-total {
+  font-size: 24px;
+  padding: 24px 0;
+  text-align: right;
+}
 @media (max-width: 440px) { 
   .product-detail {
     display: block;
