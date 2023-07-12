@@ -22,6 +22,7 @@ const GoToOrderButton = () => {
             theTg.MainButton.hide()
         } else {
             const onClick = () => {
+                impactOccurredMedium(theTg)
                 router.push('/order')
             }
             theTg.MainButton.setParams({
@@ -35,30 +36,6 @@ const GoToOrderButton = () => {
             }
         }
     }, [cart, router])
-
-    if (cart.tgEnabled) {
-        return <>
-            <table className="top-bar" style={{ border: 0, width: '100%' }}>
-                <tr>
-                    <th style={{ textAlign: 'left' }}>Name</th>
-                    <th>Volume</th>
-                    <th>Count</th>
-                    <th style={{ textAlign: 'right' }}>Amount</th>
-                </tr>
-
-                {cart.products && cart.products.map(s => <tr key={s.id + s.volume.volume}>
-                    <td style={{ textAlign: 'left' }} className="text-center">{s.name}</td>
-                    <td className="text-center">{s.volume.volume}</td>
-                    <td className="text-center">{s.count}</td>
-                    <td style={{ textAlign: 'right' }} className="text-center">{s.volume.price * s.count} ₽</td>
-                </tr>)}
-                <tr>
-                    <td style={{ textAlign: 'right' }} colSpan={4} >{cart.totalAmount()}</td>
-                </tr>
-            </table>
-
-        </>
-    }
 
     return (
         <>

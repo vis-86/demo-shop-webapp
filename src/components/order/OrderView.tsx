@@ -60,7 +60,10 @@ const OrderView = () => {
                         <OrderItem
                             key={s.id + s.volume.volume}
                             product={s}
-                            onRemoveClick={() => cart.removeProduct(s)}
+                            onRemoveClick={() => {
+                                impactOccurredMedium(cart.tg)
+                                cart.removeProduct(s)
+                            }}
                         />
                     )}
                 </div>

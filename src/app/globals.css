@@ -273,7 +273,7 @@ a {
 .volume-circle-600 {background-image: url(/volumes/Cup_600.svg);}
 
 .order-overview {
-  background-color: var(--bg-color);
+  
 }
 .order-view-empty {
   margin-top: 25px;
@@ -313,7 +313,7 @@ a {
   margin-bottom: 32px;
 }
 .cafe-order-header {
-  font-size: 20px;
+  font-size: 32px;
 }
 .order-item-actions {
   width: 60px;
