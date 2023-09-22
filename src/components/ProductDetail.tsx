@@ -4,13 +4,14 @@ import { PropsWithChildren, useContext, useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { getProductById } from "@/services/GetProductList"
 import Image from 'next/image'
-import { ProductVolume } from '@/types/Product'
+import { Price, ProductVolume } from '@/types/Product'
 import { useRouter } from 'next/navigation'
 import PlusIcon from './icons/plus'
 import MinusIcon from './icons/minus'
 import CartContext from '@/contexts/cart/TgCartProvider'
 import { AddToCartButton, BackButton } from './cart'
 import { impactOccurredMedium } from '@/TgUtils'
+import { BoxIcon } from 'lucide-react'
 
 const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
     const cart = useContext(CartContext)
@@ -18,12 +19,12 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
     const { id } = props
     const { data: product, isLoading } = useSWR(id + '', getProductById);
 
-    const [volume, setVolume] = useState<ProductVolume>()
+    const [volume, setVolume] = useState<Price>()
     const [count, setCount] = useState<number>(1)
 
     useEffect(() => {
-        if (!volume && product && product.volumes) {
-            setVolume(product.volumes[0])
+        if (!volume && product && product.priceList) {
+            setVolume(product.priceList[0])
         }
     }, [product, volume])
 
@@ -52,7 +53,12 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
             <BackButton callback={router.back} />
             <div className='product-detail-card'>
                 <div className='product-detail-image'>
-                    {product ? <Image src={product.imgThumbUrl} alt={product.name} width={140} height={140} priority={true}></Image> : null}
+                    {product && product.imgPath ? <Image 
+                    src={`/api/media/${encodeURI(product.imgPath)}`} 
+                    alt={product.name} 
+                    width={140} 
+                    height={140} 
+                    style={{ objectFit: 'cover', minWidth: '100%', borderRadius: 16 }} /> : null}
                 </div>
                 <div className='product-detail-card-content'>
                     <div>{product?.name}</div>
@@ -60,7 +66,7 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
                 </div>
             </div>
             <div className='product-detail-volumes'>
-                {product && product.volumes.map(s => {
+                {product && product.priceList && product.priceList.map(s => {
                     return <div
                         className={'product-volume-item ' + (s.volume === volume?.volume ? 'product-volume-item--active' : '')}
                         onClick={() => {
@@ -68,9 +74,11 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
                             setVolume(s)
                         }} key={s.volume}
                     >
-                        <div className={'volume-circle ' + 'volume-circle-' + s.volume} ></div>
+                        {product.metric === 'мл' ?
+                            <div className={'volume-circle ' + 'volume-circle-' + s.volume} ></div>
+                            : <BoxIcon fontSize="large" />}
                         <div className='product-detail-volume-price-content'>
-                            <div>{s.volume} мл</div>
+                            <div>{s.volume} {product.metric}</div>
                             <div className='product-detail-volume-price'>{s.price} ₽</div>
                         </div>
                     </div>

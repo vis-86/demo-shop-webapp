@@ -15,26 +15,34 @@ const ProductItem = ({ item, cartCount }: PropsWithChildren<IProps>) => {
     const {
         id,
         name,
-        imgThumbUrl,
-        volumes
+        imgPath,
+        priceFrom,
+        metric,
+        bgColor
     } = item
 
-    const firstVolume = volumes[0]
+
 
     return <div className="product-item">
-        <Link href={'/detail/' + id} className="product-item-card">
+        <Link href={'/detail/' + id} className="product-item-card" style={{backgroundColor: bgColor || '#000'}}>
             {cartCount && <div className="product-item-cart-count">
                 {cartCount}
             </div>}
             <div className="product-item-img">
-                <Image src={imgThumbUrl} alt={name} width={80} height={80} priority={false}></Image>
+                <Image
+                    src={`/api/media/${encodeURI(imgPath)}`}
+                    alt={name}
+                    width={180}
+                    height={115}
+                    style={{ objectFit: 'cover', minWidth: '100%', borderRadius: 16 }}
+                />
             </div>
             <div className="product-item-footer">
-                <div className="product-item-text">{name}</div>
+                <div className="product-item-text"><span>{name}</span></div>
                 <div className="product-item-line"></div>
                 <div className="product-item-price-info">
-                    <div className="product-item-price">от {firstVolume.price} ₽</div>
-                    <div className="product-item-volume">{firstVolume.volume} мл</div>
+                    <div className="product-item-price">от {priceFrom?.price} ₽</div>
+                    <div className="product-item-volume">{priceFrom?.volume} {metric}</div>
                 </div>
             </div>
         </Link>

@@ -23,6 +23,7 @@ const OrderView = () => {
         } else {
             const onClick = () => {
                 impactOccurredMedium(theTg)
+                theTg.sendData("Test")
                 alert('Скоро будет экран с оплатой')
             }
             theTg.MainButton.setParams({
@@ -56,9 +57,9 @@ const OrderView = () => {
                     <h2 className="cafe-order-header">Ваш заказ</h2>
                 </div>
                 <div className="order-items">
-                    {cart.products && cart.products.map(s =>
+                    {cart.products && cart.products.filter(s=> s.volume).map(s =>
                         <OrderItem
-                            key={s.id + s.volume.volume}
+                            key={s.volume?.id}
                             product={s}
                             onRemoveClick={() => {
                                 impactOccurredMedium(cart.tg)

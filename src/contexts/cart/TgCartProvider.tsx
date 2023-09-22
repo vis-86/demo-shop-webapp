@@ -42,6 +42,9 @@ export const TgCartProvider = ({ children }: { children?: ReactNode | undefined 
     const totalAmount = (): number => {
         let total = 0
         for (const item of products) {
+            if (!item || !item.volume) {
+                continue
+            }
             total += item.count * item.volume.price
         }
         return total

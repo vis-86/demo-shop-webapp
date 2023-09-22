@@ -1,9 +1,15 @@
 import { NextResponse } from "next/server";
-import { productList } from "../products";
+
+const apiBase = process.env.API_BASE_URL || "http://194.190.152.175/showcase/api";
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
-    console.log("params", params)
-    const found = productList.filter(s => s.id === parseInt(params.id))
-    return NextResponse.json(found.length === 0 ? null : found[0])
+    const response = await fetch(new URL(`${apiBase}/product`), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({...params})
+    })
+    return NextResponse.json(await response.json())
 
 }

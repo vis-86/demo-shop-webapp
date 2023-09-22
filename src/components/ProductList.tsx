@@ -1,9 +1,8 @@
 'use client'
 
-import { useContext } from 'react'
 import useSWR from 'swr'
+import { useContext } from 'react'
 import { ProductItem } from './ProductItem'
-import { Product } from '@/types/Product'
 import { getProductList } from '@/services/GetProductList'
 import { CartContext } from '@/contexts/cart'
 
@@ -11,11 +10,13 @@ const ProductList = () => {
     const { data: productList, isLoading } = useSWR("productList", getProductList);
     const cart = useContext(CartContext)
 
-    const getProductCountInCart = (id: number): number | undefined => {
+    console.log('productList', productList)
+
+    const getProductCountInCart = (id?: number): number | undefined => {
         if (!cart || !cart.products || cart.products.length === 0) {
             return
         }
-        const countList = cart.products.filter(s => s.id === id).map(({ count }) => count)
+        const countList = cart.products.filter(s => id && s.id === id).map(({ count }) => count)
         if (countList.length === 0) {
             return
         }

@@ -9,10 +9,19 @@ type Props = {
 }
 
 const OrderItem = ({ product, onRemoveClick }: PropsWithChildren<Props>) => {
+    if (!product.volume) {
+        return <>Some problem, sorry</>
+    }
     return (
         <div className="order-item-card">
             <div className="order-item-image">
-                <Image src={product.imgThumbUrl} alt={product.name} width={40} height={40} priority={true}></Image>
+                {product.imgThumbUrl && <Image
+                    src={`/api/media/${encodeURI(product.imgThumbUrl)}`}
+                    alt={product.name}
+                    width={60}
+                    height={60}
+                    style={{ objectFit: 'cover', minWidth: '100%', borderRadius: 16 }}
+                />}
             </div>
             <div className="order-item-description">
                 <div className="order-item-description-top">
@@ -20,7 +29,7 @@ const OrderItem = ({ product, onRemoveClick }: PropsWithChildren<Props>) => {
                     <div className="order-item-price">{product.volume.price * product.count} ₽</div>
                 </div>
                 <div className="order-item-description-bottom">
-                    <div className="order-item-value">{product.volume.volume} {product.volume.inch}</div>
+                    <div className="order-item-value">{product.volume.volume} {product.metric}</div>
                     <div className="order-item-count">{product.count} x {product.volume.price} ₽</div>
                 </div>
             </div>

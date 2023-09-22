@@ -1,29 +1,30 @@
 'use client'
 
 import CartContext from '@/contexts/cart/TgCartProvider'
-import { Product, ProductVolume } from '@/types/Product'
+import { Price, ProductDetail, ProductInCart } from '@/types/Product'
 import { PropsWithChildren, useContext, useEffect } from 'react'
 
 type Props = {
     callback: () => void,
-    product: Product,
-    volume: ProductVolume,
+    product: ProductDetail,
+    volume: Price,
     count: number,
     tgEnabeld: boolean
 }
 
 const createCartProduct = (
-    product: Product,
-    volume: ProductVolume,
+    product: ProductDetail,
+    volume: Price,
     count: number
-) => {
+): ProductInCart => {
     return {
         uniqId: Date.now(),
         id: product.id,
-        imgThumbUrl: product.imgThumbUrl,
+        imgThumbUrl: product.imgPath,
         name: product.name,
         volume,
-        count
+        count,
+        metric: product.metric
     }
 }
 
