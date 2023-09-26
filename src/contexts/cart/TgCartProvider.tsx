@@ -1,8 +1,8 @@
 import Script from "next/script";
 import { ProductInCart } from "@/fetcher/interfaces";
+import { useTelegram } from "@/hooks/useTelegramWebApp";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
-import { useTelegram } from "@/hooks/useTelegram";
 
 export const TgCartProvider = ({ children }: { children?: ReactNode | undefined }): ReactNode => {
     const { tgApp } = useTelegram()
