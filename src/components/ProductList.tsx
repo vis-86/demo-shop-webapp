@@ -1,16 +1,20 @@
 'use client'
 
-import useSWR from 'swr'
 import { useContext } from 'react'
 import { ProductItem } from './ProductItem'
-import { getProductList } from '@/services/GetProductList'
 import { CartContext } from '@/contexts/cart'
+import { useProductList } from '@/fetcher/products/client'
+import { Product } from '@/fetcher/interfaces'
 
-const ProductList = () => {
-    const { data: productList, isLoading } = useSWR("productList", getProductList);
+interface Props {
+    list?: Product[];
+}
+
+export default function ProductList(props: Props) {
+
+    const [productList, , isLoading] = useProductList({ pageNumber: 0, size: 100_000 }, props.list);
+
     const cart = useContext(CartContext)
-
-    console.log('productList', productList)
 
     const getProductCountInCart = (id?: number): number | undefined => {
         if (!cart || !cart.products || cart.products.length === 0) {

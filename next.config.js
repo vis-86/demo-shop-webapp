@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: ['cofix.global'],
+    experimental: {
+        serverActions: true,
     },
+    output: 'standalone',
+    reactStrictMode: false,
+    poweredByHeader: false,
+    swcMinify: true,
 }
 
 module.exports = nextConfig

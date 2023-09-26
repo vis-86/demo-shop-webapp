@@ -1,10 +1,8 @@
 'use client'
 
 import { PropsWithChildren, useContext, useEffect, useState } from 'react'
-import useSWR from 'swr'
-import { getProductById } from "@/services/GetProductList"
+
 import Image from 'next/image'
-import { Price, ProductVolume } from '@/types/Product'
 import { useRouter } from 'next/navigation'
 import PlusIcon from './icons/plus'
 import MinusIcon from './icons/minus'
@@ -12,12 +10,11 @@ import CartContext from '@/contexts/cart/TgCartProvider'
 import { AddToCartButton, BackButton } from './cart'
 import { impactOccurredMedium } from '@/TgUtils'
 import { BoxIcon } from 'lucide-react'
+import { Price, ProductDetail } from '@/fetcher/interfaces'
 
-const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
+const ProductDetail = ({ product }: PropsWithChildren<{ product: ProductDetail | undefined, }>) => {
     const cart = useContext(CartContext)
     const router = useRouter()
-    const { id } = props
-    const { data: product, isLoading } = useSWR(id + '', getProductById);
 
     const [volume, setVolume] = useState<Price>()
     const [count, setCount] = useState<number>(1)
@@ -44,8 +41,8 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
         })
     }
 
-    if (isLoading) {
-        return <h3 className='text-center loader'>Loading... </h3>
+    if (!product) {
+        return <>Не найден</>
     }
 
     return (
@@ -53,12 +50,12 @@ const ProductDetail = (props: PropsWithChildren<{ id: number, }>) => {
             <BackButton callback={router.back} />
             <div className='product-detail-card'>
                 <div className='product-detail-image'>
-                    {product && product.imgPath ? <Image 
-                    src={`/api/media/${encodeURI(product.imgPath)}`} 
-                    alt={product.name} 
-                    width={140} 
-                    height={140} 
-                    style={{ objectFit: 'cover', minWidth: '100%', borderRadius: 16 }} /> : null}
+                    {product && product.imgPath ? <Image
+                        src={`/api/media/${encodeURI(product.imgPath)}`}
+                        alt={product.name}
+                        width={140}
+                        height={140}
+                        style={{ objectFit: 'cover', minWidth: '100%', borderRadius: 16 }} /> : null}
                 </div>
                 <div className='product-detail-card-content'>
                     <div>{product?.name}</div>

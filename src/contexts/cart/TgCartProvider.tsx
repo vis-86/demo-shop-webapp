@@ -1,6 +1,6 @@
 import Script from "next/script";
-import { useTelegram } from "@/hooks/UseTelegram";
-import { ProductInCart } from "@/types/Product";
+import { useTelegram } from "@/hooks/useTelegram";
+import { ProductInCart } from "@/fetcher/interfaces";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
 

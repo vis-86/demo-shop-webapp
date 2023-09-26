@@ -1,6 +1,4 @@
-'use clinet'
-
-import { Product } from "@/types/Product"
+import { Product } from "@/fetcher/interfaces"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -20,8 +18,6 @@ const ProductItem = ({ item, cartCount }: PropsWithChildren<IProps>) => {
         metric,
         bgColor
     } = item
-
-
 
     return <div className="product-item">
         <Link href={'/detail/' + id} className="product-item-card" style={{backgroundColor: bgColor || '#000'}}>

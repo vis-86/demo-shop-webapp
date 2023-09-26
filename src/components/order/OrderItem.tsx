@@ -1,4 +1,4 @@
-import { ProductInCart } from "@/types/Product"
+import { ProductInCart } from "@/fetcher/interfaces"
 import Image from "next/image"
 import { PropsWithChildren } from "react"
 import CloseIcon from "../icons/close"

@@ -1,4 +1,4 @@
-import { ProductInCart } from "@/types/Product"
+import { ProductInCart } from "@/fetcher/interfaces"
 import { createContext } from "react"
 
 export type CartContextValue = {

@@ -45,14 +45,7 @@ export interface ProductDetail {
     categoryList?: Category[]
 }
 
-export type ProductVolume = {
-    product?: Product,
-    volume: number,
-    inch: string,
-    price: number
-}
-
-export type ProductInCart = {
+export interface ProductInCart {
     uniqId: number
     id?: number
     name: string,
