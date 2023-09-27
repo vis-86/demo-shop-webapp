@@ -20,7 +20,7 @@ const OrderItem = ({ product, onRemoveClick }: PropsWithChildren<Props>) => {
                     alt={product.name}
                     width={60}
                     height={60}
-                    style={{ objectFit: 'cover', minWidth: '100%', borderRadius: 16 }}
+                    style={{ objectFit: 'cover', maxWidth: '100%', minWidth: '100%', borderRadius: 16 }}
                 />}
             </div>
             <div className="order-item-description">

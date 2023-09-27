@@ -30,7 +30,7 @@ const ProductItem = ({ item, cartCount }: PropsWithChildren<IProps>) => {
                     alt={name}
                     width={180}
                     height={115}
-                    style={{ objectFit: 'cover', minWidth: '100%', borderRadius: 16 }}
+                    style={{ objectFit: 'cover', maxWidth: '100%', minWidth: '100%', borderRadius: 16 }}
                 />
             </div>
             <div className="product-item-footer">

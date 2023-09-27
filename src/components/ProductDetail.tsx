@@ -55,7 +55,7 @@ const ProductDetail = ({ product }: PropsWithChildren<{ product: ProductDetail |
                         alt={product.name}
                         width={140}
                         height={140}
-                        style={{ objectFit: 'cover', minWidth: '100%', borderRadius: 16 }} /> : null}
+                        style={{ objectFit: 'cover', maxWidth: '100%', minWidth: '100%', borderRadius: 16 }} /> : null}
                 </div>
                 <div className='product-detail-card-content'>
                     <div>{product?.name}</div>
