@@ -39,7 +39,7 @@ export default function CategoryProductList({ products, categories }: Props) {
   return (<>
     {
       data.map(item => (
-        <div className="container-space" key={item.id}>
+        <div key={item.id}>
           <h2 className="category-h2" id={'category-' + item.id}>{item.displayName}</h2>
           <div className='product-container'>
             {item.products.map(item => (
