@@ -1,4 +1,4 @@
-import { ProductList } from '@/components/ProductList'
+import { ProductList } from '@/views/products/ProductList'
 import { GoToOrderButton } from '@/components/cart'
 import { asyncCategoryList } from '@/fetcher/categories/server';
 import { asyncProductList } from '@/fetcher/products/server';

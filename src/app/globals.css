@@ -34,7 +34,8 @@ body {
   --ripple-duration: .45s;
   --ripple-end-duration: .3s;
   --border-color: #5d6163;
-  --seach-icon: url('/volumes/search-black.svg')
+  --seach-icon: url('/volumes/search-black.svg');
+  --close-icon: url('/volumes/close-black.svg');
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,7 +50,8 @@ body {
     --hint-color: #64666d;
     --placeholder-color: #5d6163;
     --border-color: #fff;
-    --seach-icon: url('/volumes/search-white.svg')
+    --seach-icon: url('/volumes/search-white.svg');
+    --close-icon: url('/volumes/close-white.svg');
   }
 }
 html.dark body {
@@ -60,7 +62,8 @@ html.dark body {
   --hint-color: #64666d;
   --placeholder-color: #5d6163;
   --border-color: #fff;
-  --seach-icon: url('/volumes/search-white.svg')
+  --seach-icon: url('/volumes/search-white.svg');
+  --close-icon: url('/volumes/close-white.svg');
 }
 
 body.order-mode {
@@ -121,6 +124,13 @@ a {
 }
 .container-space {
   padding: 15px;
+}
+.category-h2 {
+  padding: 14px 0;
+  margin-bottom: 12px;
+  font-size: 24px;
+  text-transform: uppercase;
+  box-sizing: content-box;
 }
 .product-container {
   display: flex;
@@ -350,7 +360,17 @@ a {
     flex-basis: 25%;
   }
 }
-
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.offset-top-container {
+  padding-top: 44px;
+  z-index: 1;
+}
 .search-bar {
   background: var(--block-bg-color);
   display: flex;
@@ -372,6 +392,8 @@ a {
   opacity: 0;
 }
 .kid{
+  font-size: 16px;
+  text-transform: uppercase;
   width: auto;
   margin-top: 1px;
   height: 32px;
@@ -384,8 +406,8 @@ a {
   vertical-align: middle;
   line-height: 2px;
 }
-
 .search-bar-input {
+  font-size: 18px;
   border: 0;
   outline: 0;
   display: block;
@@ -395,24 +417,29 @@ a {
   transition: width var(--animation);
   opacity: 0;
 }
-
+.search-bar-input-container--has-search .search-bar-input,
 .search-bar-input:focus {
   width: 320px;
   padding-left: 16px;
   padding-right: 16px;
   opacity: 1;
+  margin-right: 44px;
 }
 .search-bar-input-container {
   position: relative;
-  box-shadow: 0px 0px 18px 0px rgb(0 0 0 / 56%);
+  border-left: 1px solid var(--border-color);
 }
 .search-bar-input-container::before {
   display: flex;
   align-items: center;
+  justify-content: center;
   position: absolute;
-  width: 32px;
+  width: 44px;
+  height: 46px;
   right: 0;
   top: 0;
-  height: 44px;
-  content: var(--seach-icon)
+  content: var(--seach-icon);
+}
+.search-bar-input-container--has-search.search-bar-input-container::before  {
+  content: var(--close-icon);
 }

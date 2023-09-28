@@ -13,7 +13,10 @@ export default function CategoryChips({ categories, onClick }: Props) {
           <div
             className="kid"
             key={category.id}
-            onClick={() => onClick(category)}
+            onClick={(e)=> {
+              const elm = document.getElementById('category-' + category.id)
+              elm && elm.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            }}
           >
             {category.displayName}
           </div>
