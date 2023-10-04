@@ -32,7 +32,7 @@ interface PostProps {
 
 export async function serverPost<T>(props: PostProps): Promise<PostResponse<T>> {
   const { url, params } = props;
-  const baseUrl = props.baseUrl || process.env.API_BASE_URL;
+  const baseUrl = process.env.API_BASE_URL;
   
   const options: Options = {
     ...(props.options || {}),

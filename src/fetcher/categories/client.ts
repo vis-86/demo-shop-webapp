@@ -2,8 +2,8 @@
 
 import useMutation from '@/hooks/useMutation';
 import useQuery from '@/hooks/useQuery';
-import { SaveResponse } from '@/fetcher/interfaces/core/SaveResponse';
 import { Category } from '@/fetcher/interfaces/product/Product';
+import { ResultResponse } from '../interfaces';
 
 interface GetProductListRequest {
   search?: string
@@ -20,7 +20,7 @@ export function useCategoryList(params: GetProductListRequest, initState?: Categ
 }
 
 export function useCategorySave() {
-  return useMutation<Category, SaveResponse>({
+  return useMutation<Category, ResultResponse>({
     url: '/api/category/save',
   });
 }

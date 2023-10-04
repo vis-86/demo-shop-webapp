@@ -17,6 +17,10 @@ export const TgCartProvider = ({ children }: { children?: ReactNode | undefined 
             const tg = tgApp()
             setTg(tg)
             setTgEnabled(tg && tg.initDataUnsafe && tg.initDataUnsafe.query_id ? true : false)
+
+            //Первоначальные настройки
+            tg?.expand()
+            tg?.enableClosingConfirmation()
         }
     }, [tgApp, tgScriptReady, tgEnabled])
 

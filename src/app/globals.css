@@ -151,6 +151,7 @@ a {
   overflow: hidden;
   position: relative;
   min-height: 218px;
+  font-size: 16px;
 }
 .product-item-cart-count {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -178,7 +179,7 @@ a {
 }
 .product-item-text {
   padding: 15px;
-  padding-top: 5px;
+  padding-top: 8px;
   text-align: left;
   display: flex;
   align-content: center;
@@ -196,6 +197,7 @@ a {
 } 
 .product-item-price-info {
   padding: 15px;
+  padding-top: 8px;
   display: flex;
   justify-content: space-between;
   color: #fff;
@@ -366,7 +368,7 @@ a {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 10;
 }
 .offset-top-container {
   padding-top: 54px;

@@ -15,7 +15,7 @@ export default function CategoryChips({ categories, onClick }: Props) {
             key={category.id}
             onClick={(e)=> {
               const elm = document.getElementById('category-' + category.id)
-              elm && elm.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+              elm && elm.scrollIntoView({ behavior: 'smooth' })
             }}
           >
             {category.displayName}

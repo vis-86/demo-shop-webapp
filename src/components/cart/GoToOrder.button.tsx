@@ -2,6 +2,7 @@
 
 import { impactOccurredMedium } from "@/TgUtils"
 import { CartContext } from "@/contexts/cart"
+import { useSavePreOrder } from "@/fetcher/order/client"
 import { useRouter } from "next/navigation"
 import { useContext, useEffect } from "react"
 
@@ -9,6 +10,7 @@ const GoToOrderButton = () => {
 
     const cart = useContext(CartContext)
     const router = useRouter()
+    const { mutate, loading } = useSavePreOrder()
 
     useEffect(() => {
         if (cart === null || cart.tg === null || !cart.tgEnabled) {
@@ -22,20 +24,26 @@ const GoToOrderButton = () => {
             theTg.MainButton.hide()
         } else {
             const onClick = () => {
+                theTg.MainButton.showProgress()
                 impactOccurredMedium(theTg)
-                router.push('/order')
+                mutate({
+                  products: cart.products
+                }).then(()=> {
+                  theTg.MainButton.hideProgress()
+                  router.push('/order')
+                })
             }
             theTg.MainButton.setParams({
                 is_visible: true,
                 text: `Посмотреть заказ`
             })
             theTg.MainButton.onClick(onClick)
-
+            
             return () => {
                 theTg.MainButton.offClick(onClick)
             }
         }
-    }, [cart, router])
+    }, [cart, router, mutate])
 
     if (cart.tgEnabled) {
         return <></>
@@ -46,12 +54,16 @@ const GoToOrderButton = () => {
             <button
                 onClick={() => {
                     //todo переходим на экран с оплатой
-                    router.push('/order')
+                    mutate({
+                      products: cart.products
+                    }).then(()=> {
+                      router.push('/order')
+                    })
                 }}
                 type='button'
-                className='button-add-to-cart'
+                className='btn button-add-to-cart'
             >
-                {cart.totalAmount()} ₽
+                Посмореть заказ {loading ? '...' : cart.totalAmount() + '₽'} 
             </button>
         </>
     )

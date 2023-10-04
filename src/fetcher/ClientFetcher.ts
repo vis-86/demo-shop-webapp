@@ -24,7 +24,7 @@ interface Options {
   cancelToken?: CancelToken;
 }
 
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH;
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export function clientPost<T>(url: string, params: any = {}, options: Options = {}): Promise<PostResponse<T>> {
   const reqUrl = `${BASE_PATH}${url}`;
