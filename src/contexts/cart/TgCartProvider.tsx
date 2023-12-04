@@ -5,6 +5,7 @@ import { ReactNode, useCallback, useEffect, useState } from "react";
 import { CartContext, OrderDetail } from "./CartContext";
 import { clientPost } from "@/fetcher/ClientFetcher";
 
+const dev = process.env.NODE_ENV === 'development'
 
 export const TgCartProvider = ({ botId, merchantId, children }: { botId: string, merchantId: string, children?: ReactNode | undefined }): ReactNode => {
   const { tgApp } = useTelegram()
@@ -20,6 +21,7 @@ export const TgCartProvider = ({ botId, merchantId, children }: { botId: string,
 
   useEffect(() => {
     if (!tgScriptReady) return
+    if (!dev && !tg) return
 
     if (!initWebApp) {
       try {
