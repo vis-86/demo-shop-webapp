@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function Welcome({ deliveryTypes }: Props) {
-  const { sessionInit, order, setOrder, addProduct, clearProducts } = useContext(CartContext)
+  const { sessionInit, tg, order, setOrder, addProduct, clearProducts } = useContext(CartContext)
   const router = useRouter()
 
   const { mutate: createOrder, loading: createOrderLoading } = useCreateOrder()
@@ -72,6 +72,18 @@ export default function Welcome({ deliveryTypes }: Props) {
 
   return (
     <div>
+      <h2>order info:</h2>
+      <pre>
+        {JSON.stringify(order)}
+      </pre>
+      <h2>tg data info:</h2>
+      <pre>
+        {JSON.stringify(tg?.initDataUnsafe)}
+      </pre>
+      <h2>tg initData:</h2>
+      <pre>
+        {JSON.stringify(tg?.initData)}
+      </pre>
       {showDeliverySection && <DeliveryType
         deliveryTypes={deliveryTypes}
         onClick={(deliveryType) => {
