@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function Welcome({ deliveryTypes }: Props) {
-  const { sessionInit, tg, order, setOrder, addProduct, clearProducts } = useContext(CartContext)
+  const { sessionInit, order, setOrder, addProduct, clearProducts } = useContext(CartContext)
   const router = useRouter()
 
   const { mutate: createOrder, loading: createOrderLoading } = useCreateOrder()
@@ -66,7 +66,7 @@ export default function Welcome({ deliveryTypes }: Props) {
       .finally(() => setLoading(false));
   }, [sessionInit, setOrder, addProduct])
 
-  if (loading || createOrderLoading) {
+  if (!sessionInit || loading || createOrderLoading) {
     return <PreLoader />
   }
 
@@ -76,15 +76,8 @@ export default function Welcome({ deliveryTypes }: Props) {
       <pre>
         {JSON.stringify(order)}
       </pre>
-      <h2>tg data info:</h2>
-      <pre>
-        {JSON.stringify(tg?.initDataUnsafe)}
-      </pre>
-      <h2>tg initData:</h2>
-      <pre>
-        {JSON.stringify(tg?.initData)}
-      </pre>
-      {showDeliverySection && <DeliveryType
+      
+      {showDeliverySection || !order && <DeliveryType
         deliveryTypes={deliveryTypes}
         onClick={(deliveryType) => {
           if (createOrderLoading) return;
