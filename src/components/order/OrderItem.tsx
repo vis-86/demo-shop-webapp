@@ -9,7 +9,7 @@ type Props = {
 }
 
 const OrderItem = ({ product, onRemoveClick }: PropsWithChildren<Props>) => {
-    if (!product.volume) {
+    if (!product.option) {
         return <>Some problem, sorry</>
     }
     return (
@@ -26,11 +26,11 @@ const OrderItem = ({ product, onRemoveClick }: PropsWithChildren<Props>) => {
             <div className="order-item-description">
                 <div className="order-item-description-top">
                     <div className="order-item-name">{product.name}</div>
-                    <div className="order-item-price">{product.volume.price * product.count} ₽</div>
+                    <div className="order-item-price">{product.option.price * product.count} ₽</div>
                 </div>
                 <div className="order-item-description-bottom">
-                    <div className="order-item-value">{product.volume.volume} {product.metric}</div>
-                    <div className="order-item-count">{product.count} x {product.volume.price} ₽</div>
+                    <div className="order-item-value">{product.option.volume} {product.metric}</div>
+                    <div className="order-item-count">{product.count} x {product.option.price} ₽</div>
                 </div>
             </div>
             <div className="order-item-actions">

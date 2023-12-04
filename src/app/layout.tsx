@@ -18,7 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <div className='container'>
-          <EcommerceComponent>
+          <EcommerceComponent
+            botId={process.env.MERCHANT_ID || 1}
+            merchantId={process.env.BOT_ID || 1}
+          >
             {children}
           </EcommerceComponent>
         </div>

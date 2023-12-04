@@ -11,14 +11,14 @@ interface GetProductListRequest {
 
 export async function asyncProductList(params: GetProductListRequest) {
   return serverPost<Product[]>({
-      url: '/product/list',
-      params,
+      url: '/bot/product/list',
+      params
   });
 }
 
 export async function asyncProductDetail(params: { id: string }) {
   return serverPost<ProductDetail>({
-      url: '/product',
+      url: '/bot/product',
       params,
   });
 }

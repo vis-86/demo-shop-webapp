@@ -57,9 +57,9 @@ const OrderView = () => {
                     <h2 className="cafe-order-header">Ваш заказ</h2>
                 </div>
                 <div className="order-items">
-                    {cart.products && cart.products.filter(s=> s.volume).map(s =>
+                    {cart.products && cart.products.filter(s=> s.option).map(s =>
                         <OrderItem
-                            key={s.volume?.id}
+                            key={s.option?.id}
                             product={s}
                             onRemoveClick={() => {
                                 impactOccurredMedium(cart.tg)

@@ -8,3 +8,5 @@ export interface ResultResponse {
   ok: boolean
   message: string
 }
+
+export type OrderStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'DECLINED'

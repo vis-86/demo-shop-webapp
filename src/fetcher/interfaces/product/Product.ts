@@ -10,15 +10,16 @@ export interface Product {
     endDate?: Date
     updateDate?: Date
     updatedBy?: string
-    priceFrom?: Price
+    priceFrom?: ProductOption
     categoryList?: Category[]
 }
 
-export interface Price {
+export interface ProductOption {
     id: number
     price: number
     volume: number
-    currency: string
+    currency?: string
+    imgPath?: string
 }
 
 export interface Category {
@@ -27,7 +28,7 @@ export interface Category {
 }
 
 export interface ProductDetail {
-    id?: number
+    id: number
     name: string
     bgColor?: string
     textColor?: string
@@ -41,16 +42,16 @@ export interface ProductDetail {
     endDate?: Date
     updateDate?: Date
     updatedBy?: string
-    priceList?: Price[]
+    options?: ProductOption[]
     categoryList?: Category[]
 }
 
 export interface ProductInCart {
-    uniqId: number
-    id?: number
+    productId: number
     name: string,
     imgThumbUrl?: string,
-    volume?: Price,
+    option?: ProductOption,
+    optionId?: number
     count: number,
     metric?: string
 }

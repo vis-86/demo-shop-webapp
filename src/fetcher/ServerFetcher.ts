@@ -3,6 +3,7 @@
 import axios, { AxiosError, AxiosResponse, CancelToken } from 'axios';
 import createError from '@/components/error/create-error';
 import Error from '@/components/error/interface';
+import { cookies } from 'next/headers';
 
 export interface PostResponse<T> {
   data?: T | undefined;
@@ -24,22 +25,26 @@ interface Options {
 }
 
 interface PostProps {
-  url: string;
+  url: string
   baseUrl?: string;
   params?: any;
   options?: Options;
 }
 
 export async function serverPost<T>(props: PostProps): Promise<PostResponse<T>> {
-  const { url, params } = props;
-  const baseUrl = process.env.API_BASE_URL;
-  
+  const { url, params } = props
+  const baseUrl = process.env.API_BASE_URL
+
+  const sessionCookie = cookies().get('tg_session')?.value
+  const optionHeaders = props.options?.headers || {}
+  if (sessionCookie) {
+    optionHeaders['tg_session'] = sessionCookie
+  }
+
   const options: Options = {
     ...(props.options || {}),
-    headers: {
-      ...(props.options?.headers || {}),
-    },
-  };
+    headers: { ...optionHeaders },
+  }
 
   return axios
     .post<T>(baseUrl + url, params || {}, options)
@@ -53,10 +58,10 @@ export async function serverPost<T>(props: PostProps): Promise<PostResponse<T>> 
 }
 
 export async function mediaGet<T>(url: string): Promise<T> {
-  
+
   const baseUrl = process.env.API_BASE_URL;
-  
+
   return axios
-    .get<T>(baseUrl + url, {responseType: "stream"})
+    .get<T>(baseUrl + url, { responseType: "stream" })
     .then((response: AxiosResponse<T>) => response.data)
 }

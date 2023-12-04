@@ -1,6 +1,6 @@
 'use client'
 
-import {useState } from 'react'
+import { useState } from 'react'
 import { Category, Product } from '@/fetcher/interfaces'
 import SearchBar from '../../components/search/SearchBar'
 import CategoryProductList from './CategoryProductList'
@@ -12,7 +12,6 @@ interface Props {
 
 export default function ProductList({ list, categories }: Props) {
   const [products, setProducts] = useState(list || [])
-  
 
   return (
     <div>

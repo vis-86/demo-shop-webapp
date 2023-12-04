@@ -21,7 +21,7 @@ export default function CategoryProductList({ products, categories }: Props) {
       return
     }
     const countList = cart.products
-      .filter(s => id && s.id === id)
+      .filter(s => id && s.productId === id)
       .map(({ count }) => count)
 
     if (countList.length === 0) {

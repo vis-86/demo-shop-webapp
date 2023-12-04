@@ -1,16 +1,17 @@
-import { ProductList } from '@/views/products/ProductList'
-import { GoToOrderButton } from '@/components/cart'
-import { asyncCategoryList } from '@/fetcher/categories/server';
-import { asyncProductList } from '@/fetcher/products/server';
+import { asyncDeliveryTypes, asyncPaymentMethods } from '@/fetcher/dict/server';
+import Welcome from '@/views/welcome/Welcome';
 
 export default async function Home() {
-  const { data } = await asyncProductList({ pageNumber: 0, size: 100 });
-  const { data: categories } = await asyncCategoryList({ pageNumber: 0, size: 100 });
+  const deliveryTypes = (await asyncDeliveryTypes()).data
+  const paymentTypes = (await asyncPaymentMethods()).data
+
   return (
     <main>
       <div>
-        <ProductList list={data} categories={categories} />
-        <GoToOrderButton />
+        <Welcome
+          deliveryTypes={deliveryTypes || []}
+          paymentTypes={paymentTypes || []}
+        />
       </div>
     </main>
   )

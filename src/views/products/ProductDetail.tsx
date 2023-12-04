@@ -10,18 +10,18 @@ import CartContext from '@/contexts/cart/TgCartProvider'
 import { AddToCartButton, BackButton } from '../../components/cart'
 import { impactOccurredMedium } from '@/TgUtils'
 import { BoxIcon } from 'lucide-react'
-import { Price, ProductDetail } from '@/fetcher/interfaces'
+import { ProductOption, ProductDetail } from '@/fetcher/interfaces'
 
 const ProductDetail = ({ product }: PropsWithChildren<{ product: ProductDetail | undefined, }>) => {
     const cart = useContext(CartContext)
     const router = useRouter()
 
-    const [volume, setVolume] = useState<Price>()
+    const [volume, setVolume] = useState<ProductOption>()
     const [count, setCount] = useState<number>(1)
 
     useEffect(() => {
-        if (!volume && product && product.priceList) {
-            setVolume(product.priceList[0])
+        if (!volume && product && product.options) {
+            setVolume(product.options[0])
         }
     }, [product, volume])
 
@@ -63,7 +63,7 @@ const ProductDetail = ({ product }: PropsWithChildren<{ product: ProductDetail |
                 </div>
             </div>
             <div className='product-detail-volumes'>
-                {product && product.priceList && product.priceList.map(s => {
+                {product && product.options && product.options.map(s => {
                     return <div
                         className={'product-volume-item ' + (s.volume === volume?.volume ? 'product-volume-item--active' : '')}
                         onClick={() => {

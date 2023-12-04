@@ -39,3 +39,29 @@ export function clientPost<T>(url: string, params: any = {}, options: Options = 
       return { error: createError(error), data: null };
     });
 }
+
+export function clientUrlFormedPost(url: string, params: any = {}): Promise<any> {
+  const reqUrl = `${BASE_PATH}${url}`;
+
+  return axios
+    .post(
+      reqUrl,
+      new URLSearchParams(params).toString(),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        }
+      }
+    );
+}
+
+
+export function handleApi<T>(props: {
+  url: string;
+  params?: any;
+  
+}): Promise<PostResponse<T>> {
+  const cancelToken = axios.CancelToken;
+  const source = cancelToken.source();
+  return clientPost<T>(props.url, props.params, { cancelToken: source.token })
+}
