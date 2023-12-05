@@ -22,7 +22,7 @@ export default function Welcome({ deliveryTypes }: Props) {
   const { mutate: createOrder, loading: createOrderLoading } = useCreateOrder()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | undefined>()
-  const [showDeliverySection, setShowDeliverySection] = useState(false)
+  const [showDeliverySection, setShowDeliverySection] = useState(true)
 
   useEffect(() => {
     if (!sessionInit) return;
@@ -77,7 +77,7 @@ export default function Welcome({ deliveryTypes }: Props) {
         {JSON.stringify(order)}
       </pre>
       
-      {showDeliverySection || !order && <DeliveryType
+      {showDeliverySection && <DeliveryType
         deliveryTypes={deliveryTypes}
         onClick={(deliveryType) => {
           if (createOrderLoading) return;
