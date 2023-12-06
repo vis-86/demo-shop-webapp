@@ -9,7 +9,6 @@ export async function POST(req: Request) {
 
   if (session) {
     const url = (new URL(req.url)).pathname.replace('/api', '');
-    
     const params = (await req.json()) || {};
     const response = await serverPost({ url, params });
 

@@ -1,11 +1,12 @@
 'use client'
 
-import { useContext, useEffect, useState } from 'react'
-import { Category, Product } from '@/fetcher/interfaces'
+import { useContext, useState } from 'react'
+import { Category, DisplayName, Product } from '@/fetcher/interfaces'
 import SearchBar from '../../components/search/SearchBar'
 import CategoryProductList from './CategoryProductList'
 import { CartContext } from '@/contexts/cart'
 import { useProductList } from '@/fetcher/products/client'
+import PreLoader from '@/components/loader/PreLoader'
 
 interface Props {
   list?: Product[];
@@ -14,31 +15,28 @@ interface Props {
 
 export default function ProductList({ categories }: Props) {
   const cart = useContext(CartContext)
-  const [products, setProducts, loading] = useProductList({
+  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState<Category | undefined>()
+  const [products, , loading] = useProductList({
     size: 100,
     pageNumber: 0,
-    deliveryTypeId: cart.order?.deliveryTypeId
-    
+    search: search.length > 0 ? search : undefined,
+    deliveryTypeId: cart.order?.deliveryTypeId,
+    categoryId: category ? category.id : undefined
   })
   return (
     <div>
       <div className='fixed-top'>
         <SearchBar
+          category={category}
           categories={categories || []}
-          onCategoryClick={(category) => {
-
-          }}
-          onSearch={(search) => {
-            if (!products || search.length === 0) {
-              setProducts(products || [])
-            } else {
-              setProducts(products.filter(s => s.name.toLowerCase().indexOf(search.toLowerCase()) > -1))
-            }
-          }}
+          onCategoryClick={setCategory}
+          onSearch={setSearch}
         />
       </div>
       <div className='offset-top-container'>
-        <CategoryProductList products={products || []} categories={categories || []} />
+        {search}
+        {loading ? <PreLoader /> : <CategoryProductList products={products || []} categories={categories || []} />}
       </div>
     </div>
   );

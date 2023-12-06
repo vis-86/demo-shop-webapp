@@ -28,14 +28,14 @@ interface Options {
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export function clientPost<T>(url: string, params: any = {}, options: Options = {}): Promise<PostResponse<T>> {
-  const reqUrl = `${BASE_PATH}${url}`;
+  const reqUrl = `${url}`;
 
   const sessionCookie = getCookie('tg_session')
   const optionHeaders = options?.headers || {}
   if (sessionCookie) {
     optionHeaders['tg_session'] = sessionCookie
   }
-  console.log('===== get cookie', sessionCookie)
+  console.log('===== get cookie', sessionCookie, reqUrl)
 
   const axiosOptions: Options = {
     ...(options || {}),

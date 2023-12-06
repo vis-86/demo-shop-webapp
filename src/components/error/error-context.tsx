@@ -1,8 +1,10 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState, createContext } from 'react';
+import { Dispatch, SetStateAction, useState, createContext, useContext } from 'react';
 import ErrorWidget from './error-widget';
 import Error from './interface';
+import { CartContext } from '@/contexts/cart';
+import PreLoader from '../loader/PreLoader';
 
 interface ErrorContextResponse {
   errors: Error[];
@@ -21,8 +23,10 @@ export function ErrorProvider(props: { children: any, errors?: Error[] }) {
     setErrors((prevState) => prevState.filter((err) => err.errorId !== errorId));
   };
 
+  const cart = useContext(CartContext)
+
   return (
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ErrorContext.Provider value={{ errors, setErrors }}>
       {errors?.map((error, index) => (
         <ErrorWidget
@@ -33,7 +37,7 @@ export function ErrorProvider(props: { children: any, errors?: Error[] }) {
         />
       ))}
 
-      {props.children}
+      {cart.sessionInit ? props.children : <PreLoader />}
     </ErrorContext.Provider>
   );
 }

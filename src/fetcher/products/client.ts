@@ -9,6 +9,7 @@ interface GetProductListRequest {
   pageNumber: number
   size: number,
   deliveryTypeId?: number
+  categoryId?: number
 }
 
 

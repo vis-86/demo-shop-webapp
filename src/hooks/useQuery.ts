@@ -13,6 +13,7 @@ interface UseQueryProps<T> {
 export type UseQuery<T> = [T | undefined, Dispatch<SetStateAction<T | undefined>>, boolean];
 
 export default function useQuery<T>(props: UseQueryProps<T>): UseQuery<T> {
+  
   const cancelToken = axios.CancelToken;
   const source = cancelToken.source();
   const { setErrors } = useContext(ErrorContext);

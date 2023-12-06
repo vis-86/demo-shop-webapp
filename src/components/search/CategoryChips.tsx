@@ -1,22 +1,21 @@
 import { Category } from "@/fetcher/interfaces";
 
 interface Props {
+  value?: Category
   categories: Category[]
-  onClick: (category: Category) => void
+  onClick: (category?: Category) => void
 }
 
-export default function CategoryChips({ categories, onClick }: Props) {
+export default function CategoryChips({ value, categories, onClick }: Props) {
   return (
     <div className="parent">{
       categories.map((category) => {
+        const isActive = category === value
         return (
           <div
-            className="kid"
+            className={"kid" + (isActive ? " kid--active" : "")}
             key={category.id}
-            onClick={(e)=> {
-              const elm = document.getElementById('category-' + category.id)
-              elm && elm.scrollIntoView({ behavior: 'smooth' })
-            }}
+            onClick={() => onClick(isActive ? undefined : category)}
           >
             {category.displayName}
           </div>

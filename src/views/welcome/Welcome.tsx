@@ -71,7 +71,7 @@ export default function Welcome({ deliveryTypes }: Props) {
   }
 
   return (
-    <div className="user-text">
+    <div className="user-text welcome-page">
       {showDeliverySection && <DeliveryType
         deliveryTypes={deliveryTypes}
         onClick={(deliveryType) => {
