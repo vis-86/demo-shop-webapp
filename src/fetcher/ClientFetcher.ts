@@ -4,6 +4,7 @@ import axios, { AxiosError, AxiosResponse, CancelToken } from 'axios';
 import createError from '@/components/error/create-error';
 import Error from '@/components/error/interface';
 import * as process from 'process';
+import { getCookie } from "cookies-next";
 
 export interface PostResponse<T> {
   data?: T | null;
@@ -29,8 +30,20 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 export function clientPost<T>(url: string, params: any = {}, options: Options = {}): Promise<PostResponse<T>> {
   const reqUrl = `${BASE_PATH}${url}`;
 
+  const sessionCookie = getCookie('tg_session')
+  const optionHeaders = options?.headers || {}
+  if (sessionCookie) {
+    optionHeaders['tg_session'] = sessionCookie
+  }
+  console.log('===== get cookie', sessionCookie)
+
+  const axiosOptions: Options = {
+    ...(options || {}),
+    headers: { ...optionHeaders },
+  }
+
   return axios
-    .post<T>(reqUrl, params, options)
+    .post<T>(reqUrl, params, axiosOptions)
     .then((response: AxiosResponse<T>) => createResponse<T>(response))
     .catch((error: AxiosError<Error>) => {
       if (error.response?.data?.type === 'ERR_CANCELED' || error.code === 'ERR_CANCELED') {

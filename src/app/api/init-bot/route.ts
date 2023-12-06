@@ -20,6 +20,9 @@ export async function POST(req: Request, res: NextResponse) {
       cookies().set('tg_session', tgSessionId);
     }
 
+    console.log('GET session ID:', tgSessionId)
+    console.log('GET session in coookie:', cookies().getAll())
+
     return NextResponse.json({});
   }
 
