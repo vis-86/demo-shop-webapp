@@ -71,12 +71,7 @@ export default function Welcome({ deliveryTypes }: Props) {
   }
 
   return (
-    <div>
-      <h2>order info:</h2>
-      <pre>
-        {JSON.stringify(order)}
-      </pre>
-      
+    <div className="user-text">
       {showDeliverySection && <DeliveryType
         deliveryTypes={deliveryTypes}
         onClick={(deliveryType) => {

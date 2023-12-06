@@ -65,9 +65,12 @@ html.dark body {
   --seach-icon: url('/volumes/search-white.svg');
   --close-icon: url('/volumes/close-white.svg');
 }
-
 body.order-mode {
   background-color: var(--bg-color);
+}
+
+.user-text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
 }
 
 a {

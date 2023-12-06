@@ -1,5 +1,6 @@
 'use client'
 
+import { impactOccurredMedium } from '@/TgUtils'
 import CartContext from '@/contexts/cart/TgCartProvider'
 import { ProductOption, ProductDetail, ProductInCart } from '@/fetcher/interfaces'
 import { useSaveOrder } from '@/fetcher/order/client'
@@ -9,8 +10,7 @@ type Props = {
   callback: () => void,
   product: ProductDetail,
   volume: ProductOption,
-  count: number,
-  tgEnabeld: boolean
+  count: number
 }
 
 const createCartProduct = (
@@ -43,22 +43,24 @@ const AddToCartButton = ({ callback, product, volume, count }: PropsWithChildren
     const onClick = () => {
       const newProduct = createCartProduct(product, volume, count)
       
-      theTg.MainButton.isProgressVisible = true
+      theTg.MainButton.showProgress()
+      impactOccurredMedium(theTg)
       
       mutate({
         orderId: cart.order?.orderId,
-        products: cart.products,
+        products: [...cart.products, newProduct],
         status: cart.order?.status,
         deliveryTypeId: cart.order?.deliveryTypeId
       }).then(() => {
-        theTg.MainButton.isProgressVisible = false
+        theTg.MainButton.hideProgress()
         cart.addProduct(newProduct)
         callback()
-      })
+      }).catch()
 
       theTg.BackButton.isVisible && theTg.BackButton.hide()
 
     }
+
     theTg.MainButton?.setParams({
       is_visible: true,
       text: `Добавить (${count * volume.price} ₽)`

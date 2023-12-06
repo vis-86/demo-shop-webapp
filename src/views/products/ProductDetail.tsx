@@ -90,7 +90,6 @@ const ProductDetail = ({ product }: PropsWithChildren<{ product: ProductDetail |
                 product={product}
                 volume={volume}
                 count={count}
-                tgEnabeld={cart.tgEnabled}
                 callback={() => {
                     router.back()
                 }}

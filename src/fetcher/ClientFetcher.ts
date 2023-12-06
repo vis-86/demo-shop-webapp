@@ -59,7 +59,6 @@ export function clientUrlFormedPost(url: string, params: any = {}): Promise<any>
 export function handleApi<T>(props: {
   url: string;
   params?: any;
-  
 }): Promise<PostResponse<T>> {
   const cancelToken = axios.CancelToken;
   const source = cancelToken.source();
