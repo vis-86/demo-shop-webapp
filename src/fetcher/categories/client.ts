@@ -11,7 +11,7 @@ interface GetProductListRequest {
 
 export function useCategoryList(params: GetProductListRequest, initState?: Category[]) {
   return useQuery<Category[]>({
-    url: '/api/category/list',
+    url: '/api/bot/product/categories',
     params,
     initState,
   });

@@ -11,14 +11,7 @@ interface GetListRequest {
 
 export async function asyncCategoryList(params: GetListRequest) {
     return serverPost<Category[]>({
-        url: '/category/list',
-        params,
-    });
-}
-
-export async function asyncCategoryDetail(params: { id: string }) {
-    return serverPost<Category>({
-        url: '/category',
+        url: '/bot/product/categories',
         params,
     });
 }

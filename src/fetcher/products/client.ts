@@ -7,7 +7,8 @@ import { Product, ProductDetail } from '@/fetcher/interfaces/';
 interface GetProductListRequest {
   search?: string
   pageNumber: number
-  size: number
+  size: number,
+  deliveryTypeId?: number
 }
 
 
